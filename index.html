@@ -9,7 +9,24 @@
 </head>
 <body>
     <div id="app">
-        <user @user_login="login" ></user>
+        <menu_mini_games v-if="number_mini_game === 0"
+                         @go_to_millionaire="millionaire"
+                         @go_to_terms="terms"
+                         @go_to_planets="planets"
+                         @go_to_point="point"
+                         @go_to_survey="survey"
+                         @go_to_robot="robot"
+                         @go_to_task="task">
+        </menu_mini_games>
+        <terms v-if="number_mini_game === 1" @score_plus="plus"></terms>
+        <point v-if="number_mini_game === 2"></point>
+        <millionaire v-if="number_mini_game === 3" @score_plus="plus" :users="users"></millionaire>
+        <planets v-if="number_mini_game === 4"></planets>
+
+        <survey v-if="number_mini_game === 5"></survey>
+
+        <robot v-if="number_mini_game === 6"></robot>
+        <task v-if="number_mini_game === 7"></task>
     </div>
 </body>
 </html>
