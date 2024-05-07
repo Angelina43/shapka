@@ -3,15 +3,28 @@ Vue.component('user', {
         return {
             login_user: {
                 username: ''
+            },
+            new_user: {
+                id: null,
+                username: '',
+                scores: {
+                    millionaire: 0,
+                }
             }
         };
     },
 
     template: `
     <div>
-      <input placeholder="Логин" type="text" id="login" v-model="login_user.username">
-      
-      <button type="submit" @click="user_login">Войти</button>
+        <div class="login">
+          <input placeholder="Логин" type="text" id="login" v-model="login_user.username">
+          <button type="submit" @click="user_login">Войти</button>
+        </div>
+        
+        <div class="registration">
+            <input placeholder="Логин" type="text" id="login" v-model="new_user.username">
+            <button type="submit" @click="user_add">Добавиться</button>
+        </div>
     </div>
     `,
 
@@ -20,8 +33,24 @@ Vue.component('user', {
             if (this.login_user.username) {
                 this.login_user.id = Date.now();
                 this.$emit('user_login', this.login_user);
+                this.login_user = {
+                    username: '',
+                }
             }
-        }
+        },
+        user_add() {
+            if (this.new_user.username) {
+                this.new_user.id = Date.now();
+                this.$emit('user_add', this.new_user);
+                this.new_user = {
+                    id: '',
+                    username: '',
+                    scores: {
+                        millionaire: 0,
+                    }
+                }
+            }
+        },
     }
 })
 
@@ -31,7 +60,7 @@ Vue.component('millionaire', {
         users: {
             type: Array
         },
-        number_mini_game: {
+        buff_id: {
             type: Number
         }
     },
@@ -40,6 +69,7 @@ Vue.component('millionaire', {
         return {
             message: "Приветствую на нашем шоу, в котором, мы проверим твои знания в сфере 'Электроника'! Желаю тебе удачи друг!",
             questionIndex: 0,
+            scoreMultiplier: 1,
             questions: [
                 {
                     question: 'Кто создал радио?',
@@ -120,6 +150,15 @@ Vue.component('millionaire', {
 `,
     methods: {
         checkAnswer(answerIndex) {
+            if(this.questions[this.questionIndex].correctAnswerIndex === answerIndex) {
+                this.users.forEach(user => {
+                    if(user.id === this.buff_id) {
+                        user.scores.millionaire = 10*this.scoreMultiplier
+                        //тут this.save()
+                    }
+                })
+                this.scoreMultiplier++;
+            }
             this.questionIndex++;
 
             if (this.questionIndex === this.questions.length) {
@@ -1064,6 +1103,7 @@ Vue.component('menu_mini_games', {
     }
 })
 
+
 let app = new Vue({
     el: '#app',
     data: {
@@ -1071,27 +1111,37 @@ let app = new Vue({
             {
                 id: 1,
                 username: 'Shapka',
-                score: 13
+                scores: {
+                    millionaire: 13,
+                }
             },
             {
                 id: 2,
                 username: 'Ghost',
-                score: 666
+                scores: {
+                    millionaire: 666,
+                }
             }
         ],
         username: null,
-        score: 0,
         buff_id: 0,
-        number_mini_game: 0,
+        number_mini_game: -1,
     },
 
     methods: {
         login(loginData){
             this.users.forEach(user => {
                 if(user.username === loginData.username) {
-                    console.log(user.id)
+                    this.buff_id = user.id
+                    this.number_mini_game = 0
+                    //тут this.save()
                 }
             })
+        },
+
+        registration(newUserData) {
+            this.users.push(newUserData)
+            //тут this.save()
         },
 
         plus(){
