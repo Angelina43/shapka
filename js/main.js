@@ -1071,6 +1071,9 @@ Vue.component('menu_mini_games', {
         },
         buff_id: {
             type: Number
+        },
+        user_login: {
+            type: Number
         }
     },
 
@@ -1149,6 +1152,7 @@ let app = new Vue({
         username: null,
         buff_id: 0,
         number_mini_game: -1,
+        user_login: 0,
     },
 
     methods: {
@@ -1156,6 +1160,9 @@ let app = new Vue({
             this.users.forEach(user => {
                 if(user.username === loginData.username) {
                     this.buff_id = user.id
+                    this.number_mini_game = 0
+                    this.user_login = 1
+
                     this.number_mini_game = 0
 
                     this.save();
@@ -1205,14 +1212,26 @@ let app = new Vue({
             this.number_mini_game = 7
         },
 
-        save(loginData) {
+        save() {
             localStorage.users = JSON.stringify(this.users);
+            localStorage.buff_id = JSON.stringify(this.buff_id);
+            localStorage.user_login = JSON.stringify(this.user_login);
+            localStorage.number_mini_game = JSON.stringify(this.number_mini_game);
             },
     },
 
     mounted() {
         if (localStorage.users) {
             this.users = JSON.parse(localStorage.users)
+        }
+        if (localStorage.buff_id) {
+            this.buff_id = JSON.parse(localStorage.buff_id)
+        }
+        if (localStorage.user_login) {
+            this.user_login = JSON.parse(localStorage.user_login)
+        }
+        if (localStorage.number_mini_game) {
+            this.number_mini_game = JSON.parse(localStorage.number_mini_game)
         }
     }
 })
