@@ -119,12 +119,12 @@ Vue.component('millionaire', {
 
     template: `
     <div class="body_millionaire">  
-        <div class="polosa1"></div>
-        <div class="polosa2"></div>
-        <div class="polosa3"></div>
-        <div class="polosa4"></div>
-        <div class="polosa5"></div>
-        <div class="polosa6"></div>
+        <div class="polosa1_millionaire"></div>
+        <div class="polosa2_millionaire"></div>
+        <div class="polosa3_millionaire"></div>
+        <div class="polosa4_millionaire"></div>
+        <div class="polosa5_millionaire"></div>
+        <div class="polosa6_millionaire"></div>
         
         <div class="questionBorder"></div>
         <div class="answerBorder"></div>
@@ -154,7 +154,7 @@ Vue.component('millionaire', {
                 this.users.forEach(user => {
                     if(user.id === this.buff_id) {
                         user.scores.millionaire = 10*this.scoreMultiplier
-                        //тут this.save()
+                        this.save()
                     }
                 })
                 this.scoreMultiplier++;
@@ -162,10 +162,17 @@ Vue.component('millionaire', {
             this.questionIndex++;
 
             if (this.questionIndex === this.questions.length) {
-                this.$emit('score_plus', this.number_mini_game);
+                // this.$emit('score_plus', this.number_mini_game);
+                this.$emit('go_to_menu', this.number_mini_game);
+
+                console.log(this.users)
             }
         },
-    },
+
+        save() {
+            localStorage.setItem('users', JSON.stringify(this.users));
+        }
+    }
 })
 
 //Термины
@@ -1058,10 +1065,15 @@ Vue.component('task', {
 
 //Меню
 Vue.component('menu_mini_games', {
-    data() {
-        return {
+    props: {
+        users: {
+            type: Array
+        },
+        buff_id: {
+            type: Number
         }
     },
+
     template: `
     <div class="body_menu_mini_games">
         <div class="button_menu_mini_games">
@@ -1073,8 +1085,19 @@ Vue.component('menu_mini_games', {
             <button @click="go_to_robot">Робот по линии</button>
             <button @click="go_to_task">Задача на Java Script</button>
         </div>
+        
+        <div class="raiting">
+        <section>Счёт</section>
+            <div v-for="(user, index) in users">
+                    <div v-if="buff_id === user.id">
+                        <p>Имя игрока: {{user.username}}</p>
+                        <p>Счёт в игре: {{user.scores.millionaire}}</p>
+                    </div>
+            </div>
+        </div>
     </div>
     `,
+
     methods: {
         go_to_millionaire(){
             this.$emit('go_to_millionaire', this.number_mini_game);
@@ -1100,7 +1123,7 @@ Vue.component('menu_mini_games', {
         go_to_task(){
             this.$emit('go_to_task', this.number_mini_game);
         },
-    }
+    },
 })
 
 
@@ -1112,7 +1135,7 @@ let app = new Vue({
                 id: 1,
                 username: 'Shapka',
                 scores: {
-                    millionaire: 13,
+                    millionaire: 0,
                 }
             },
             {
@@ -1134,14 +1157,15 @@ let app = new Vue({
                 if(user.username === loginData.username) {
                     this.buff_id = user.id
                     this.number_mini_game = 0
-                    //тут this.save()
+
+                    this.save();
                 }
             })
         },
 
         registration(newUserData) {
             this.users.push(newUserData)
-            //тут this.save()
+            this.save()
         },
 
         plus(){
@@ -1149,8 +1173,12 @@ let app = new Vue({
             console.log(this.number_mini_game)
         },
 
+        menu(){
+            this.number_mini_game = 0
+        },
+
         terms(){
-            this.number_mini_game = 1
+
         },
 
         point(){
@@ -1176,5 +1204,15 @@ let app = new Vue({
         task(){
             this.number_mini_game = 7
         },
+
+        save(loginData) {
+            localStorage.users = JSON.stringify(this.users);
+            },
     },
+
+    mounted() {
+        if (localStorage.users) {
+            this.users = JSON.parse(localStorage.users)
+        }
+    }
 })
