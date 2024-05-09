@@ -19,13 +19,13 @@
                          @go_to_robot="robot"
                          @go_to_task="task">
         </menu_mini_games>
-        <terms v-if="number_mini_game === 1" @score_plus="plus"></terms>
-        <point v-if="number_mini_game === 2"></point>
-        <millionaire v-if="number_mini_game === 3" @score_plus="plus" @go_to_menu="menu" :users="users" :buff_id="buff_id"></millionaire>
-        <planets v-if="number_mini_game === 4"></planets>
-        <survey v-if="number_mini_game === 5"></survey>
-        <robot v-if="number_mini_game === 6"></robot>
-        <task v-if="number_mini_game === 7"></task>
+        <terms v-if="number_mini_game === 1" @go_to_menu="menu" :users="users" :buff_id="buff_id"></terms>
+        <point v-if="number_mini_game === 2" @go_to_menu="menu":users="users" :buff_id="buff_id"></point>
+        <millionaire v-if="number_mini_game === 3" @go_to_menu="menu" :users="users" :buff_id="buff_id"></millionaire>
+        <planets v-if="number_mini_game === 4" @go_to_menu="menu" :users="users" :buff_id="buff_id"></planets>
+        <survey v-if="number_mini_game === 5" @go_to_menu="menu" :users="users" :buff_id="buff_id"></survey>
+        <robot v-if="number_mini_game === 6" @go_to_menu="menu" :users="users" :buff_id="buff_id"></robot>
+        <task v-if="number_mini_game === 7" @go_to_menu="menu" :users="users" :buff_id="buff_id"></task>
     </div>
 </body>
 </html>

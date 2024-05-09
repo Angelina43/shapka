@@ -8,7 +8,13 @@ Vue.component('user', {
                 id: null,
                 username: '',
                 scores: {
+                    term: 0,
+                    point: 0,
                     millionaire: 0,
+                    planets: 0,
+                    survey: 0,
+                    robot: 0,
+                    task: 0,
                 }
             }
         };
@@ -46,7 +52,13 @@ Vue.component('user', {
                     id: '',
                     username: '',
                     scores: {
+                        term: 0,
+                        point: 0,
                         millionaire: 0,
+                        planets: 0,
+                        survey: 0,
+                        robot: 0,
+                        task: 0,
                     }
                 }
             }
@@ -162,10 +174,7 @@ Vue.component('millionaire', {
             this.questionIndex++;
 
             if (this.questionIndex === this.questions.length) {
-                // this.$emit('score_plus', this.number_mini_game);
                 this.$emit('go_to_menu', this.number_mini_game);
-
-                console.log(this.users)
             }
         },
 
@@ -177,6 +186,15 @@ Vue.component('millionaire', {
 
 //Термины
 Vue.component('terms', {
+    props: {
+        users: {
+            type: Array
+        },
+        buff_id: {
+            type: Number
+        }
+    },
+
     data() {
         return {
             termin: [
@@ -269,9 +287,11 @@ Vue.component('terms', {
             }
         },
         cat(id) {
-            if (this.secondCard == null) {
-                this.$set(this.puma[id], 'isOtvet2', true);
-                this.secondCard = this.puma[id].number;
+            if (this.firstCard != null) {
+                if (this.secondCard == null) {
+                    this.$set(this.puma[id], 'isOtvet2', true);
+                    this.secondCard = this.puma[id].number;
+                }
             }
 
             if (this.firstCard === this.secondCard) {
@@ -295,9 +315,19 @@ Vue.component('terms', {
         },
         nextQuestion() {
             if (this.cardIndex === 5) {
-                this.$emit('score_plus', this.number_mini_game);
+                this.users.forEach(user => {
+                    if(user.id === this.buff_id) {
+                        user.scores.term = 10
+                        this.save()
+                    }
+                })
+                this.$emit('go_to_menu', this.number_mini_game);
             }
         },
+
+        save() {
+            localStorage.setItem('users', JSON.stringify(this.users));
+        }
     },
 
     mounted() {
@@ -310,6 +340,16 @@ Vue.component('terms', {
 
 //Планеты
 Vue.component('planets', {
+
+    props: {
+        users: {
+            type: Array
+        },
+        buff_id: {
+            type: Number
+        }
+    },
+
     data() {
         return {
             poryadokPlanet: [],
@@ -596,8 +636,13 @@ Vue.component('planets', {
                 this.moveSaturn === true && this.moveUran === true && this.movePluto === true) {
 
                 if (this.poryadokPlanet.join() === this.pravylnyPoryadokPlanet.join()) {
-                    window.location.replace("../index.html");
-                    document.location.href='../index.html'
+                    this.users.forEach(user => {
+                        if(user.id === this.buff_id) {
+                            user.scores.planets = 20
+                            this.save()
+                        }
+                    })
+                    this.$emit('go_to_menu', this.number_mini_game);
                 } else {
 
                     if(this.poryadokPlanet[0] === 'sun') this.blackSun = false
@@ -634,9 +679,9 @@ Vue.component('planets', {
             }
         },
 
-        menu() {
-            console.log(1)
-        }
+        save() {
+            localStorage.setItem('users', JSON.stringify(this.users));
+        },
     },
 
     mounted() {
@@ -647,6 +692,16 @@ Vue.component('planets', {
 
 //Точки
 Vue.component('point', {
+
+    props: {
+        users: {
+            type: Array
+        },
+        buff_id: {
+            type: Number
+        }
+    },
+
     data() {
         return {
             massive: [
@@ -658,6 +713,31 @@ Vue.component('point', {
                 {item: 6, class: 3},
                 {item: 7, class: 4},
                 {item: 8, class: 4},
+            ],
+
+            radio_massive: [
+                {elem: 1, point: 1},
+                {elem: 2, point: 1},
+                {elem: 3, point: 2},
+                {elem: 4, point: 2},
+                {elem: 5, point: 3},
+                {elem: 6, point: 3},
+                {elem: 7, point: 4},
+                {elem: 8, point: 4},
+                {elem: 9, point: 5},
+                {elem: 10, point: 5},
+                {elem: 11, point: 6},
+                {elem: 12, point: 6},
+                {elem: 13, point: 7},
+                {elem: 14, point: 7},
+                {elem: 15, point: 8},
+                {elem: 16, point: 8},
+                {elem: 17, point: 9},
+                {elem: 18, point: 9},
+                {elem: 19, point: 10},
+                {elem: 20, point: 10},
+                {elem: 21, point: 11},
+                {elem: 22, point: 11},
             ],
 
             isOne: false,
@@ -677,7 +757,34 @@ Vue.component('point', {
             isEight: false,
             isEight1: false,
 
+            radioOne: false,
+            radioOne1: false,
+            radioTwo: false,
+            radioTwo1: false,
+            radioThree: false,
+            radioThree1: false,
+            radioFour: false,
+            radioFour1: false,
+            radioFive: false,
+            radioFive1: false,
+            radioSix: false,
+            radioSix1: false,
+            radioSeven: false,
+            radioSeven1: false,
+            radioEight: false,
+            radioEight1: false,
+            radioNine: false,
+            radioNine1: false,
+            radioTen: false,
+            radioTen1: false,
+            radioEleven: false,
+            radioEleven1: false,
+
+            isMassive: true,
+            isRadioMassive: false,
             massiveIndex: 0,
+
+            message: 'Привет! Давай вместе собебрем маленького робота? Необходимо нажать последовательно на каждую точку!'
         }
     },
 
@@ -703,10 +810,37 @@ Vue.component('point', {
         <div class="block5" v-if="this.isSix && this.isSix1"></div>
         <div class="block6" v-if="this.isSeven && this.isSeven1"></div>
         <div class="block7" v-if="this.isEight && this.isEight1"></div>
-        </div>
+    </div>
         
+    <div class="body_point_massive">
+        <div class="radio_massive" v-for="(item, id) in radio_massive" :id=id :key="item.elem">
+                <div v-if="item.elem === 1">{{ item.elem }}</div> 
+                <div v-if="item.elem === 2">{{ item.elem }}</div>
+                <div v-if="item.elem === 3">{{ item.elem }}</div>
+                <div v-if="item.elem === 4">{{ item.elem }}</div>
+                <div v-if="item.elem === 5">{{ item.elem }}</div>
+                <div v-if="item.elem === 6">{{ item.elem }}</div>
+                <div v-if="item.elem === 7">{{ item.elem }}</div>
+                <div v-if="item.elem === 8">{{ item.elem }}</div>
+                <div v-if="item.elem === 9">{{ item.elem }}</div>
+                <div v-if="item.elem === 10">{{ item.elem }}</div>
+                <div v-if="item.elem === 11">{{ item.elem }}</div>
+                <div v-if="item.elem === 12">{{ item.elem }}</div>
+                <div v-if="item.elem === 13">{{ item.elem }}</div>
+                <div v-if="item.elem === 14">{{ item.elem }}</div>
+                <div v-if="item.elem === 15">{{ item.elem }}</div>
+                <div v-if="item.elem === 16">{{ item.elem }}</div>
+                <div v-if="item.elem === 17">{{ item.elem }}</div>
+                <div v-if="item.elem === 18">{{ item.elem }}</div>
+                <div v-if="item.elem === 19">{{ item.elem }}</div>
+                <div v-if="item.elem === 20">{{ item.elem }}</div>
+                <div v-if="item.elem === 21">{{ item.elem }}</div>
+                <div v-if="item.elem === 22">{{ item.elem }}</div>
+        </div>
+    </div>
         <div class="robot_shadow"></div>
         <div class="robot"></div>
+        <div class="message_point"><p class="textMenu_point">{{message}}</p></div>
 </div>     
 
 `,
@@ -780,6 +914,16 @@ Vue.component('point', {
 
 //Опрос
 Vue.component('survey', {
+
+    props: {
+        users: {
+            type: Array
+        },
+        buff_id: {
+            type: Number
+        }
+    },
+
     data() {
         return {
             questionIndex: 0,
@@ -847,6 +991,16 @@ Vue.component('survey', {
 
 //Робот
 Vue.component('robot', {
+
+    props: {
+        users: {
+            type: Array
+        },
+        buff_id: {
+            type: Number
+        }
+    },
+
     data() {
         return {
             position: {
@@ -938,7 +1092,14 @@ Vue.component('robot', {
                             this.position.x -= this.step;
                         }
                         else {
-                            console.log(1)
+                            this.users.forEach(user => {
+                                if(user.id === this.buff_id) {
+                                    user.scores.robot = 30
+                                    this.save()
+                                }
+                            })
+
+                            this.$emit('go_to_menu', this.number_mini_game);
                         }
                     }
                     break;
@@ -972,6 +1133,10 @@ Vue.component('robot', {
         resetPosition() {
             this.position.x = 115;
             this.position.y = 740;
+        },
+
+        save() {
+            localStorage.setItem('users', JSON.stringify(this.users));
         }
     },
 
@@ -1016,6 +1181,16 @@ Vue.component('robot', {
 
 //Задача на JS
 Vue.component('task', {
+
+    props: {
+        users: {
+            type: Array
+        },
+        buff_id: {
+            type: Number
+        }
+    },
+
     data() {
         return {
             userCode: '', // Хранит код, введенный пользователем
@@ -1055,11 +1230,21 @@ Vue.component('task', {
 
             if (cleanedUserCode === cleanedSavedCode) {
                 this.comparisonResult = true; // Коды совпадают
-                console.log(1)
+                this.users.forEach(user => {
+                    if(user.id === this.buff_id) {
+                        user.scores.task = 30
+                        this.save()
+                    }
+                })
+                this.$emit('go_to_menu', this.number_mini_game);
             } else {
                 this.comparisonResult = false; // Коды не совпадают
             }
-        }
+        },
+
+        save() {
+            localStorage.setItem('users', JSON.stringify(this.users));
+        },
     },
 })
 
@@ -1094,7 +1279,13 @@ Vue.component('menu_mini_games', {
             <div v-for="(user, index) in users">
                     <div v-if="buff_id === user.id">
                         <p>Имя игрока: {{user.username}}</p>
-                        <p>Счёт в игре: {{user.scores.millionaire}}</p>
+                        <p>Счёт в игре "Термины": {{user.scores.term}}</p>
+                        <p>Счёт в игре "Точки": {{user.scores.point}}</p>
+                        <p>Счёт в игре "Миллионер": {{user.scores.millionaire}}</p>
+                        <p>Счёт в игре "Планеты": {{user.scores.planets}}</p>
+                        <p>Счёт в игре "Опросник": {{user.scores.survey}}</p>
+                        <p>Счёт в игре "Робот": {{user.scores.robot}}</p>
+                        <p>Счёт в игре "Задача на JS": {{user.scores.task}}</p>
                     </div>
             </div>
         </div>
@@ -1138,14 +1329,26 @@ let app = new Vue({
                 id: 1,
                 username: 'Shapka',
                 scores: {
+                    term: 0,
+                    point: 0,
                     millionaire: 0,
+                    planets: 0,
+                    survey: 0,
+                    robot: 0,
+                    task: 0,
                 }
             },
             {
                 id: 2,
                 username: 'Ghost',
                 scores: {
+                    term: 666,
+                    point: 666,
                     millionaire: 666,
+                    planets: 666,
+                    survey: 666,
+                    robot: 666,
+                    task: 666,
                 }
             }
         ],
@@ -1185,7 +1388,7 @@ let app = new Vue({
         },
 
         terms(){
-
+            this.number_mini_game = 1
         },
 
         point(){
