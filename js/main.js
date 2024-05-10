@@ -779,6 +779,22 @@ Vue.component('point', {
             radioTen1: false,
             radioEleven: false,
             radioEleven1: false,
+            radioTwelve: false,
+            radioTwelve1: false,
+            radioThirteen: false,
+            radioThirteen1: false,
+            radioFourteen: false,
+            radioFourteen1: false,
+            radioFifteen: false,
+            radioFifteen1: false,
+            radioSixteen: false,
+            radioSixteen1: false,
+            radioSeventeen: false,
+            radioSeventeen1: false,
+            radioEighteen: false,
+            radioEighteen1: false,
+            radioNineteen: false,
+            radioNineteen1: false,
 
             isMassive: true,
             isRadioMassive: false,
@@ -790,7 +806,7 @@ Vue.component('point', {
 
     template: `
 <div>
-    <div class="body_point"> 
+    <div class="body_point" v-if="this.isMassive == true"> 
         <div class="massive1" @click=but(id) v-for="(elem, id) in massive" :id=id :key="elem.item">
                 <div v-if="elem.item === 1">{{ elem.item }}</div> 
                 <div v-if="elem.item === 2">{{ elem.item }}</div>
@@ -812,8 +828,8 @@ Vue.component('point', {
         <div class="block7" v-if="this.isEight && this.isEight1"></div>
     </div>
         
-    <div class="body_point_massive">
-        <div class="radio_massive" v-for="(item, id) in radio_massive" :id=id :key="item.elem">
+    <div class="body_point_massive" v-if="this.isRadioMassive == true">
+        <div class="radio_massive" @click=click(id) v-for="(item, id) in radio_massive" :id=id :key="item.elem">
                 <div v-if="item.elem === 1">{{ item.elem }}</div> 
                 <div v-if="item.elem === 2">{{ item.elem }}</div>
                 <div v-if="item.elem === 3">{{ item.elem }}</div>
@@ -837,12 +853,35 @@ Vue.component('point', {
                 <div v-if="item.elem === 21">{{ item.elem }}</div>
                 <div v-if="item.elem === 22">{{ item.elem }}</div>
         </div>
+            <div class="block8" v-if="this.radioOne && this.radioOne1"></div>
+            <div class="block9" v-if="this.radioTwo && this.radioTwo1"></div>
+            <div class="block10" v-if="this.radioThree && this.radioThree1"></div>
+            <div class="block11" v-if="this.radioFour && this.radioFour1"></div>
+            
+            <div class="block12" v-if="this.radioFive && this.radioFive1"></div>
+            <div class="block13" v-if="this.radioSix && this.radioSix1"></div>
+            <div class="block14" v-if="this.radioSeven && this.radioSeven1"></div>
+            <div class="block15" v-if="this.radioEight && this.radioEight1"></div>
+            <div class="block16" v-if="this.radioNine && this.radioNine1"></div>
+
+            <div class="block17" v-if="this.radioTen && this.radioTen1"></div>
+
+            <div class="block18" v-if="this.radioEleven && this.radioEleven1"></div>
+            <div class="block19" v-if="this.radioTwelve && this.radioTwelve1"></div>
+            <div class="block20" v-if="this.radioThirteen && this.radioThirteen1"></div>
+            <div class="block21" v-if="this.radioFourteen && this.radioFourteen1"></div>
+            <div class="block22" v-if="this.radioFifteen && this.radioFifteen1"></div>
+
+            <div class="block23" v-if="this.radioSixteen && this.radioSixteen1"></div>
+            <div class="block24" v-if="this.radioSeventeen && this.radioSeventeen1"></div>
+
+            <div class="block25" v-if="this.radioEighteen && this.radioEighteen1"></div>
+            <div class="block26" v-if="this.radioNineteen && this.radioNineteen1"></div>
     </div>
         <div class="robot_shadow"></div>
         <div class="robot"></div>
         <div class="message_point"><p class="textMenu_point">{{message}}</p></div>
 </div>     
-
 `,
     methods: {
         but(id) {
@@ -902,8 +941,144 @@ Vue.component('point', {
                 this.massiveIndex++
             }
 
-            this.nextPage()
+            if (this.massiveIndex > this.massive.length) {
+                this.isMassive = false
+                this.isRadioMassive = true
+            }
         },
+
+        click(id){
+            let radio = this.radio_massive[id]
+
+            if (radio.elem === 1 && radio.point === 1) {
+                this.radioOne = true
+                this.radioFour = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 2 && radio.point === 1) {
+                this.radioOne1 = true
+                this.radioTwo = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 3 && radio.point === 2) {
+                this.radioTwo1 = true
+                this.radioThree = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 4 && radio.point === 2) {
+                this.radioThree1 = true
+                this.radioFour1 = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 5 && radio.point === 3) {
+                this.radioFive = true
+                this.radioNine1 = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 6 && radio.point === 3) {
+                this.radioFive1 = true
+                this.radioSix = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 7 && radio.point === 4) {
+                this.radioSix1 = true
+                this.radioSeven = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 8 && radio.point === 4) {
+                this.radioSeven1 = true
+                this.radioEight = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 9 && radio.point === 5) {
+                this.radioEight1 = true
+                this.radioNine = true
+                this.massiveIndex++
+
+            }
+
+            if (radio.elem === 10 && radio.point === 5) {
+                this.radioTen = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 11 && radio.point === 6) {
+                this.radioTen1 = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 12 && radio.point === 6) {
+                this.radioEleven = true
+                this.radioFifteen1 = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 13 && radio.point === 7) {
+                this.radioEleven1 = true
+                this.radioTwelve = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 14 && radio.point === 7) {
+                this.radioTwelve1 = true
+                this.radioThirteen = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 15 && radio.point === 8) {
+                this.radioThirteen1 = true
+                this.radioFourteen = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 16 && radio.point === 8) {
+                this.radioFourteen1 = true
+                this.radioFifteen = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 17 && radio.point === 9) {
+                this.radioSixteen = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 18 && radio.point === 9) {
+                this.radioSixteen1 = true
+                this.radioSeventeen = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 19 && radio.point === 10) {
+                this.radioSeventeen1 = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 20 && radio.point === 10) {
+                this.radioEighteen = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 21 && radio.point === 11) {
+                this.radioEighteen1 = true
+                this.radioNineteen = true
+                this.massiveIndex++
+            }
+
+            if (radio.elem === 22 && radio.point === 11) {
+                this.radioNineteen1 = true
+                this.massiveIndex++
+            }
+
+        },
+
         nextPage() {
             if (this.massiveIndex > this.massive.length) {
                 console.log(1)

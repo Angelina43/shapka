@@ -780,6 +780,204 @@
     color: blue;
 }
 
+.block8 {
+    width: 29px;
+    height: 120px;
+    top: 20vh;
+    left: 33.9vw;
+    position: absolute;
+    background-color: green;
+    color: green;
+}
+
+.block9 {
+    width: 300px;
+    height: 29px;
+    top: 20vh;
+    left: 34vw;
+    position: absolute;
+    background-color: green;
+    color: green;
+}
+
+.block10 {
+    width: 29px;
+    height: 120px;
+    top: 20vh;
+    left: 48.4vw;
+    position: absolute;
+    background-color: green;
+    color: green;
+}
+
+.block11 {
+    width: 300px;
+    height: 29px;
+    top: 30vh;
+    left: 34vw;
+    position: absolute;
+    background-color: green;
+    color: green;
+}
+
+.block12 {
+    width: 110px;
+    height: 29px;
+    top: 35vh;
+    left: 48.8vw;
+    position: absolute;
+    background-color: green;
+    color: green;
+}
+
+.block13 {
+    width: 29px;
+    height: 110px;
+    top: 36vh;
+    left: 53.3vw;
+    position: absolute;
+    background-color: green;
+    color: green;
+}
+
+.block14 {
+    width: 110px;
+    height: 29px;
+    top: 45vh;
+    left: 48.8vw;
+    position: absolute;
+    background-color: green;
+    color: green;
+}
+
+.block15 {
+    width: 110px;
+    height: 29px;
+    top: 42.5vh;
+    left: 43.6vw;
+    position: absolute;
+    background-color: green;
+    transform: rotate(25deg);
+    color: green;
+}
+
+.block16 {
+    width: 110px;
+    height: 29px;
+    top: 37.5vh;
+    left: 43.6vw;
+    position: absolute;
+    background-color: green;
+    transform: rotate(-25deg);
+    color: green;
+}
+
+.block17 {
+    width: 120px;
+    height: 29px;
+    top: 50vh;
+    left: 38.8vw;
+    position: absolute;
+    background-color: green;
+    color: green;
+}
+
+.block18 {
+    width: 120px;
+    height: 29px;
+    top: 37.5vh;
+    left: 34.2vw;
+    position: absolute;
+    background-color: green;
+    transform: rotate(25deg);
+    color: green;
+}
+
+.block19 {
+    width: 110px;
+    height: 29px;
+    top: 35vh;
+    left: 29.1vw;
+    position: absolute;
+    background-color: green;
+    color: green;
+}
+
+.block20 {
+    width: 29px;
+    height: 110px;
+    top: 35vh;
+    left: 29vw;
+    position: absolute;
+    background-color: green;
+    color: green;
+}
+
+.block21 {
+    width: 110px;
+    height: 29px;
+    top: 45vh;
+    left: 29vw;
+    position: absolute;
+    background-color: green;
+    color: green;
+}
+
+.block22 {
+    width: 120px;
+    height: 29px;
+    top: 42.4vh;
+    left: 34vw;
+    position: absolute;
+    background-color: green;
+    transform: rotate(-25deg);
+    color: green;
+}
+
+.block23 {
+    width: 80px;
+    height: 30px;
+    top: 59.4vh;
+    left: 36.2vw;
+    position: absolute;
+    background-color: green;
+    transform: rotate(45deg);
+    color: green;
+}
+
+.block24 {
+    width: 80px;
+    height: 30px;
+    top: 59.4vh;
+    left: 38.4vw;
+    position: absolute;
+    background-color: green;
+    transform: rotate(-50deg);
+    color: green;
+}
+
+.block25 {
+    width: 80px;
+    height: 30px;
+    top: 59.4vh;
+    left: 42.7vw;
+    position: absolute;
+    background-color: green;
+    transform: rotate(50deg);
+    color: green;
+}
+
+.block26 {
+    width: 80px;
+    height: 30px;
+    top: 59.4vh;
+    left: 44.6vw;
+    position: absolute;
+    background-color: green;
+    transform: rotate(-50deg);
+    color: green;
+}
+
 .message_point {
     width: 250px;
     height: 150px;
