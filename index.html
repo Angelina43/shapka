@@ -18,7 +18,8 @@
                      @go_to_survey="survey"
                      @go_to_robot="robot"
                      @go_to_task="task"
-                     @go_to_profile="profile">
+                     @go_to_profile="profile"
+                     @user_logout="logout">
     </menu_mini_games>
     <terms v-if="number_mini_game === 1" @go_to_menu="menu" :users="users" :buff_id="buff_id"></terms>
     <point v-if="number_mini_game === 2" @go_to_menu="menu":users="users" :buff_id="buff_id"></point>

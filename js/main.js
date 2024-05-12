@@ -1450,6 +1450,10 @@ Vue.component('menu_mini_games', {
             <button @click="go_to_task">Задача на Java Script</button>
             <button @click="go_to_profile">Профиль</button>
         </div>
+        
+        <div class="logout">
+            <button type="submit" @click="user_logout">Выйти</button></div>
+        </div>
     </div>
     `,
 
@@ -1481,7 +1485,12 @@ Vue.component('menu_mini_games', {
 
         go_to_profile(){
             this.$emit('go_to_profile', this.number_mini_game);
-        }
+        },
+
+        user_logout() {
+                this.$emit('user_logout', this.login_user);
+                this.login_user = { username: '' };
+        },
     },
 })
 
@@ -1596,11 +1605,17 @@ let app = new Vue({
                     this.number_mini_game = 0
                     this.user_login = 1
 
-                    this.number_mini_game = 0
-
                     this.save();
                 }
             })
+        },
+
+        logout(){
+            this.buff_id = 0
+            this.number_mini_game = -1
+            this.user_login = 0
+
+            this.save();
         },
 
         registration(newUserData) {
