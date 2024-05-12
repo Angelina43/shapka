@@ -14,8 +14,9 @@ Vue.component('user', {
                     planets: 0,
                     survey: 0,
                     robot: 0,
-                    task: 0,
-                }
+                    task: 0
+                },
+                total: 0
             }
         };
     },
@@ -1447,22 +1448,7 @@ Vue.component('menu_mini_games', {
             <button @click="go_to_survey">Опросник</button>
             <button @click="go_to_robot">Робот по линии</button>
             <button @click="go_to_task">Задача на Java Script</button>
-        </div>
-        
-        <div class="raiting">
-        <section>Счёт</section>
-            <div v-for="(user, index) in users">
-                    <div v-if="buff_id === user.id">
-                        <p>Имя игрока: {{user.username}}</p>
-                        <p>Счёт в игре "Термины": {{user.scores.term}}</p>
-                        <p>Счёт в игре "Точки": {{user.scores.point}}</p>
-                        <p>Счёт в игре "Миллионер": {{user.scores.millionaire}}</p>
-                        <p>Счёт в игре "Планеты": {{user.scores.planets}}</p>
-                        <p>Счёт в игре "Опросник": {{user.scores.survey}}</p>
-                        <p>Счёт в игре "Робот": {{user.scores.robot}}</p>
-                        <p>Счёт в игре "Задача на JS": {{user.scores.task}}</p>
-                    </div>
-            </div>
+            <button @click="go_to_profile">Профиль</button>
         </div>
     </div>
     `,
@@ -1492,7 +1478,74 @@ Vue.component('menu_mini_games', {
         go_to_task(){
             this.$emit('go_to_task', this.number_mini_game);
         },
+
+        go_to_profile(){
+            this.$emit('go_to_profile', this.number_mini_game);
+        }
     },
+})
+
+//Профиль
+Vue.component('profile', {
+    props: {
+        users: {
+            type: Array
+        },
+        buff_id: {
+            type: Number
+        },
+        user_login: {
+            type: Number
+        }
+    },
+
+    template: `
+        <div class="body_profile">
+            <div class="profile_user" v-for="(user, index) in users"> 
+                <div v-if="buff_id === user.id">
+                    <p>Профиль игрока {{user.username}}</p>
+                <div class="raiting">
+                <div v-for="(user, index) in users">
+                    <div v-if="buff_id === user.id">
+                        <p>Счёт в игре "Термины": {{user.scores.term}}</p>
+                        <p>Счёт в игре "Точки": {{user.scores.point}}</p>
+                        <p>Счёт в игре "Миллионер": {{user.scores.millionaire}}</p>
+                        <p>Счёт в игре "Планеты": {{user.scores.planets}}</p>
+                        <p>Счёт в игре "Опросник": {{user.scores.survey}}</p>
+                        <p>Счёт в игре "Робот": {{user.scores.robot}}</p>
+                        <p>Счёт в игре "Задача на JS": {{user.scores.task}}</p>
+                    </div>
+            </div>
+        </div>
+                </div>
+            </div>
+
+            <div class="ledaer">
+                <p>Лидеры</p>
+                <div v-for="(user, index) in users"> 
+                    <ul>{{user.username}}:{{user.total}}</ul>
+                </div>
+            </div>
+        </div>
+    `,
+
+    methods: {
+        calculateTotal(userId) {
+            const user = this.users.find(user => user.id === userId);
+
+            if (user) {
+                user.total = user.scores.term + user.scores.millionaire + user.scores.planets;
+
+                this.users.sort((a, b) => b.total - a.total);
+            }
+        }
+    },
+
+    mounted() {
+        if (this.buff_id !== null) {
+            this.calculateTotal(this.buff_id);
+        }
+    }
 })
 
 
@@ -1510,8 +1563,9 @@ let app = new Vue({
                     planets: 0,
                     survey: 0,
                     robot: 0,
-                    task: 0,
-                }
+                    task: 0
+                },
+                total: 0
             },
             {
                 id: 2,
@@ -1524,7 +1578,8 @@ let app = new Vue({
                     survey: 666,
                     robot: 666,
                     task: 666,
-                }
+                },
+                total: 4662
             }
         ],
         username: null,
@@ -1590,12 +1645,16 @@ let app = new Vue({
             this.number_mini_game = 7
         },
 
+        profile(){
+            this.number_mini_game = 8
+        },
+
         save() {
             localStorage.users = JSON.stringify(this.users);
             localStorage.buff_id = JSON.stringify(this.buff_id);
             localStorage.user_login = JSON.stringify(this.user_login);
             localStorage.number_mini_game = JSON.stringify(this.number_mini_game);
-            },
+        },
     },
 
     mounted() {
