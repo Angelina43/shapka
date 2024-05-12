@@ -1000,6 +1000,13 @@
     font-weight: 700;
 }
 
+.small_robot{
+    width: 10vw;
+    height: 10vh;
+    background-color: coral;
+    transition: 0.09s linear;
+}
+
 /*Робот*/
 .stripe {
     position: absolute;

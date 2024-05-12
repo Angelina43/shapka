@@ -799,7 +799,11 @@ Vue.component('point', {
 
             isMassive: true,
             isRadioMassive: false,
+            isRobot: false,
+
             massiveIndex: 0,
+            currentIndex: 0,
+            currentRadioIndex: 0,
 
             message: 'Привет! Давай вместе собебрем маленького робота? Необходимо нажать последовательно на каждую точку!'
         }
@@ -879,6 +883,8 @@ Vue.component('point', {
             <div class="block25" v-if="this.radioEighteen && this.radioEighteen1"></div>
             <div class="block26" v-if="this.radioNineteen && this.radioNineteen1"></div>
     </div>
+        <div ref="item" class="small_robot" v-if="this.isRobot == true"></div>
+
         <div class="robot_shadow"></div>
         <div class="robot"></div>
         <div class="message_point"><p class="textMenu_point">{{message}}</p></div>
@@ -888,61 +894,65 @@ Vue.component('point', {
         but(id) {
             let number = this.massive[id]
 
-            if (number.class === 1 && number.item === 1) {
+            if (number.class === 1 && number.item === 1 && this.currentIndex === 0) {
                 this.isOne = true
+                this.isEight1 = true
                 this.massiveIndex++
+                this.currentIndex++
             }
 
-            if (number.class === 1 && number.item === 2) {
+            if (number.class === 1 && number.item === 2 && this.currentIndex === 1) {
                 this.isOne1 = true
                 this.isTwo = true
                 this.massiveIndex++
+                this.currentIndex++
             }
 
-            if (number.class === 2 && number.item === 3) {
+            if (number.class === 2 && number.item === 3 && this.currentIndex === 2) {
                 this.isTwo1 = true
                 this.isThree = true
                 this.massiveIndex++
+                this.currentIndex++
             }
 
 
-            if (number.class === 2 && number.item === 4) {
+            if (number.class === 2 && number.item === 4 && this.currentIndex === 3) {
                 this.isThree1 = true
                 this.isFour = true
                 this.massiveIndex++
+                this.currentIndex++
             }
 
-            if (number.class === 3 && number.item === 5) {
+            if (number.class === 3 && number.item === 5 && this.currentIndex === 4) {
                 this.isFour1 = true
                 this.isFive = true
                 this.massiveIndex++
+                this.currentIndex++
             }
 
-            if (number.class === 3 && number.item === 6) {
+            if (number.class === 3 && number.item === 6 && this.currentIndex === 5) {
                 this.isFive1 = true
                 this.isSix = true
                 this.massiveIndex++
+                this.currentIndex++
             }
 
-            if (number.class === 4 && number.item === 7) {
+            if (number.class === 4 && number.item === 7 && this.currentIndex === 6) {
                 this.isSix1 = true
                 this.isSeven = true
                 this.massiveIndex++
+                this.currentIndex++
             }
 
 
-            if (number.class === 4 && number.item === 8) {
+            if (number.class === 4 && number.item === 8 && this.currentIndex === 7) {
                 this.isSeven1 = true
                 this.isEight = true
                 this.massiveIndex++
+                this.currentIndex++
             }
 
-            if (number.class === 1 && number.item === 1) {
-                this.isEight1 = true
-                this.massiveIndex++
-            }
-
-            if (this.massiveIndex > this.massive.length) {
+            if (this.massiveIndex === this.massive.length) {
                 this.isMassive = false
                 this.isRadioMassive = true
             }
@@ -951,141 +961,176 @@ Vue.component('point', {
         click(id){
             let radio = this.radio_massive[id]
 
-            if (radio.elem === 1 && radio.point === 1) {
+            if (radio.elem === 1 && radio.point === 1 && this.currentRadioIndex === 0) {
                 this.radioOne = true
                 this.radioFour = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 2 && radio.point === 1) {
+            if (radio.elem === 2 && radio.point === 1 && this.currentRadioIndex === 1) {
                 this.radioOne1 = true
                 this.radioTwo = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 3 && radio.point === 2) {
+            if (radio.elem === 3 && radio.point === 2 && this.currentRadioIndex === 2) {
                 this.radioTwo1 = true
                 this.radioThree = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 4 && radio.point === 2) {
+            if (radio.elem === 4 && radio.point === 2 && this.currentRadioIndex === 3) {
                 this.radioThree1 = true
                 this.radioFour1 = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 5 && radio.point === 3) {
+            if (radio.elem === 5 && radio.point === 3 && this.currentRadioIndex === 4) {
                 this.radioFive = true
                 this.radioNine1 = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 6 && radio.point === 3) {
+            if (radio.elem === 6 && radio.point === 3 && this.currentRadioIndex === 5) {
                 this.radioFive1 = true
                 this.radioSix = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 7 && radio.point === 4) {
+            if (radio.elem === 7 && radio.point === 4 && this.currentRadioIndex === 6) {
                 this.radioSix1 = true
                 this.radioSeven = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 8 && radio.point === 4) {
+            if (radio.elem === 8 && radio.point === 4 && this.currentRadioIndex === 7) {
                 this.radioSeven1 = true
                 this.radioEight = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 9 && radio.point === 5) {
+            if (radio.elem === 9 && radio.point === 5 && this.currentRadioIndex === 8) {
                 this.radioEight1 = true
                 this.radioNine = true
                 this.massiveIndex++
+                this.currentRadioIndex++
 
             }
 
-            if (radio.elem === 10 && radio.point === 5) {
+            if (radio.elem === 10 && radio.point === 5 && this.currentRadioIndex === 9) {
                 this.radioTen = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 11 && radio.point === 6) {
+            if (radio.elem === 11 && radio.point === 6 && this.currentRadioIndex === 10) {
                 this.radioTen1 = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 12 && radio.point === 6) {
+            if (radio.elem === 12 && radio.point === 6 && this.currentRadioIndex === 11) {
                 this.radioEleven = true
                 this.radioFifteen1 = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 13 && radio.point === 7) {
+            if (radio.elem === 13 && radio.point === 7 && this.currentRadioIndex === 12) {
                 this.radioEleven1 = true
                 this.radioTwelve = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 14 && radio.point === 7) {
+            if (radio.elem === 14 && radio.point === 7 && this.currentRadioIndex === 13) {
                 this.radioTwelve1 = true
                 this.radioThirteen = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 15 && radio.point === 8) {
+            if (radio.elem === 15 && radio.point === 8 && this.currentRadioIndex === 14) {
                 this.radioThirteen1 = true
                 this.radioFourteen = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 16 && radio.point === 8) {
+            if (radio.elem === 16 && radio.point === 8 && this.currentRadioIndex === 15) {
                 this.radioFourteen1 = true
                 this.radioFifteen = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 17 && radio.point === 9) {
+            if (radio.elem === 17 && radio.point === 9 && this.currentRadioIndex === 16) {
                 this.radioSixteen = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 18 && radio.point === 9) {
+            if (radio.elem === 18 && radio.point === 9 && this.currentRadioIndex === 17) {
                 this.radioSixteen1 = true
                 this.radioSeventeen = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 19 && radio.point === 10) {
+            if (radio.elem === 19 && radio.point === 10 && this.currentRadioIndex === 18) {
                 this.radioSeventeen1 = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 20 && radio.point === 10) {
+            if (radio.elem === 20 && radio.point === 10 && this.currentRadioIndex === 19) {
                 this.radioEighteen = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 21 && radio.point === 11) {
+            if (radio.elem === 21 && radio.point === 11 && this.currentRadioIndex === 20) {
                 this.radioEighteen1 = true
                 this.radioNineteen = true
                 this.massiveIndex++
+                this.currentRadioIndex++
             }
 
-            if (radio.elem === 22 && radio.point === 11) {
+            if (radio.elem === 22 && radio.point === 11 && this.currentRadioIndex === 21) {
                 this.radioNineteen1 = true
                 this.massiveIndex++
+                this.currentRadioIndex++
+
+                this.moveItem()
             }
 
         },
 
-        nextPage() {
-            if (this.massiveIndex > this.massive.length) {
-                console.log(1)
-            }
+        moveItem(event) {
+            const item = this.item;
+
+            item.style.position = 'fixed';
+            item.style.left = event.clientX - 20 + 'px';
+            item.style.top = event.clientY - 20 + 'px';
         }
     },
+
+    mounted() {
+        document.addEventListener('mousemove', this.moveItem);
+        this.item = this.$refs.item;
+    },
+
+    beforeUnmount() {
+        document.removeEventListener('mousemove', this.moveItem);
+    }
 })
 
 //Опрос
@@ -1276,6 +1321,24 @@ Vue.component('robot', {
                             })
 
                             this.$emit('go_to_menu', this.number_mini_game);
+
+                            let oneElement = document.querySelector('.start');
+                            let twoElement = document.querySelector('.finish');
+                            let threeElement = document.querySelector('.polosa');
+                            let fourElement = document.querySelector('.polosa1');
+                            let fiveElement = document.querySelector('.polosa2');
+                            let sixElement = document.querySelector('.polosa3');
+                            let sevenElement = document.querySelector('.polosa5');
+
+                            if (oneElement && twoElement && threeElement && fourElement && fiveElement && sixElement && sevenElement) {
+                                oneElement.remove();
+                                twoElement.remove();
+                                threeElement.remove();
+                                fourElement.remove();
+                                fiveElement.remove();
+                                sixElement.remove();
+                                sevenElement.remove();
+                            }
                         }
                     }
                     break;
@@ -1619,8 +1682,15 @@ let app = new Vue({
         },
 
         registration(newUserData) {
-            this.users.push(newUserData)
-            this.save()
+            const isDuplicate = this.users.some(user => user.username === newUserData.username);
+
+            if (isDuplicate) {
+                console.error('Пользователь с таким логином уже существует');
+                return;
+            }
+
+            this.users.push(newUserData);
+            this.save();
         },
 
         plus(){
