@@ -1149,10 +1149,16 @@ Vue.component('survey', {
         return {
             questionIndex: 0,
             answerIndex: 0,
-            questions: ['What is the capital of France?', 'What is the capital of Russia?'],
-            answer: [['Paris', 'paris'], ['Moscow', 'moscow']],
+            questions: ['Что такое паяльник?', 'Из чего состоит паяльник?', 'Для чего нужен флюс?', 'Для чего нужен припой', 'Для чего нужна губка?'],
+            answer: [['Инструмент для пайки', 'инструмент для пайки'],
+                    ['Корпуса, рукоятки, нагревательного элемента и жала', 'корпуса, рукоятки, нагревательного элемента и жала'],
+                    ['Для удаления оксидов', 'для удаления оксидов'],
+                    ['Для соединения заготовок', 'для соединения заготовок'],
+                    ['Для отчистки жала паяльника', 'для отчистки жала паяльника'],
+            ],
             correctAnswer: null,
-            message: null,
+            message_survey: null,
+            scoreSurvey: 0
         }
     },
 
@@ -1168,9 +1174,9 @@ Vue.component('survey', {
     template: `
     <div class="survey">
         <h1>{{ questions[questionIndex] }}</h1>
-            <input  v-model="correctAnswer" placeholder="введите ответ" v-on:keyup.enter="submitAnswers">
+           <input  v-model="correctAnswer" placeholder="введите ответ" v-on:keyup.enter="submitAnswers">
         <p>Введённое сообщение: {{ correctAnswer }}</p>
-        <p v-if="message_survey">{{message}}</p>
+        <p v-if="message_survey">{{message_survey}}</p>
     </div>
 `,
     methods: {
@@ -1180,32 +1186,44 @@ Vue.component('survey', {
             let currentAnswer = this.answer[this.questionIndex];
 
             if(this.correctAnswer === null){
-                this.message = 'Заполните поле для ответа'
+                this.message_survey = 'Заполните поле для ответа'
+            }  else {
+
+                if (this.correctAnswer.trim().toLowerCase() === currentAnswer[0] || this.correctAnswer.trim().toLowerCase() === currentAnswer[1]) {
+                    this.users.forEach(user => {
+                        if (user.id === this.buff_id) {
+                            this.scoreSurvey = 20 + this.scoreSurvey;
+                            user.scores.survey = this.scoreSurvey
+                            this.save();
+                        }
+
+                        console.log(user.scores.survey)
+                    })
+                    this.correctAnswer = "";
+
+                    this.questionIndex++;
+
+                    this.answerIndex++;
+
+                }else {
+                    this.correctAnswer = ""
+
+                    this.questionIndex++;
+
+                    this.answerIndex++;
+
+                }
             }
-            setTimeout(() => {
-                this.message = null
-            }, 1000)
-
-            if (this.correctAnswer.toLowerCase() === currentAnswer[0] || this.correctAnswer.toLowerCase() === currentAnswer[1]) {
-                this.correctAnswer = ""
-
-                this.questionIndex++;
-
-                this.answerIndex++;
-
-                this.nextQuestion();
-            } else {
-                this.message = "неправильный овтет"
-            }
-            setTimeout(() => {
-                this.message = null
-            }, 1000)
         },
 
         nextQuestion() {
             if (this.questionIndex === this.questions.length) {
                 console.log(1)
             }
+        },
+
+        save() {
+            localStorage.setItem('users', JSON.stringify(this.users));
         }
     },
 })
