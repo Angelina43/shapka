@@ -1248,6 +1248,11 @@ Vue.component('robot', {
             },
             step: 40,
             border: null,
+            message: 'Привет! Помоги пожалуйста роботу добраться до финиша! Скажу по секрету, путь можно укоротить',
+            countStep: 0,
+            fullStep: 100,
+            shortStep: 0,
+            currentStep: 0
         }
     },
 
@@ -1257,7 +1262,7 @@ Vue.component('robot', {
                 position: 'absolute',
                 width: '50px',
                 height: '50px',
-                background: 'blue',
+                background: '#f8e8d8',
                 top: `${this.position.y}px`,
                 left: `${this.position.x}px`,
                 'z-index': 2,
@@ -1267,7 +1272,7 @@ Vue.component('robot', {
     },
 
     template: `
-   <div>
+   <div class="body_robot1">
 
     <div ref="block" :style="blockStyle"></div>
     <button @click="moveBlock('up')">Вверх</button>
@@ -1275,6 +1280,12 @@ Vue.component('robot', {
     <button @click="moveBlock('left')">Влево</button>
     <button @click="moveBlock('right')">Вправо</button>
     <button @click="resetPosition">Назад</button>
+    
+    <div class="robot_shadow"></div>
+    <div class="robot"></div>
+    <div class="message_terms"><p class="textMenu_terms">{{message}}</p></div>     
+    
+    <p class="currentStep">Количество оставшихся шагов: {{currentStep}}</p>     
   </div>
 `,
     methods: {
@@ -1283,28 +1294,57 @@ Vue.component('robot', {
                 case 'up':
                     if (this.position.y > this.polosa.top + 50) {
                         this.position.y -= this.step;
+                        this.countStep = this.countStep + 1
+                        this.currentStep = this.fullStep - this.countStep
                     }
 
                     if (this.position.x === 515) {
                         if (this.position.y > this.polosa2.top + 50) {
                             this.position.y -= this.step;
+                            this.countStep = this.countStep + 1
+                            this.currentStep = this.fullStep - this.countStep
                         }
                     }
                     if (this.position.x === 875) {
                         if (this.position.y > this.polosa3.top + 30) {
                             this.position.y -= this.step;
+                            this.countStep = this.countStep + 1
+                            this.currentStep = this.fullStep - this.countStep
                         }
                     }
+
+                    if (this.position.x === 235) {
+                        if (this.position.y > this.polosa5.top + 20) {
+                            this.position.y -= this.step;
+                            this.countStep = this.countStep + 1
+                            this.currentStep = this.fullStep - this.countStep
+                        }
+                    }
+
                     break;
 
                 case 'down':
                     if (this.position.y < this.polosa.bottom - 55) {
                         this.position.y += this.step;
+                        this.countStep = this.countStep + 1
+                        this.currentStep = this.fullStep - this.countStep
                     }
                     if(this.position.x === 875){
                         if (this.position.y > this.polosa3.top + 185) {
                             this.position.y -= this.step;
+                            this.countStep = this.countStep + 1
+                            this.currentStep = this.fullStep - this.countStep
                         }
+                    }
+
+                    if(this.position.x === 235){
+                        if (this.position.y > this.polosa5.top + 300) {
+                            this.position.y -= this.step;
+                            this.countStep = this.countStep + 1
+                            this.currentStep = this.fullStep - this.countStep
+                        }
+
+
                     }
                     break;
 
@@ -1312,50 +1352,68 @@ Vue.component('robot', {
 
                     if (this.position.x > this.polosa.left + 15) {
                         this.position.x -= this.step;
+                        this.countStep = this.countStep + 1
+                        this.currentStep = this.fullStep - this.countStep
                     }
 
                     if(this.position.y === 660) {
                         if (this.position.x < this.polosa1.left - 10){
                             this.position.x += this.step;
+                            this.countStep = this.countStep + 1
+                            this.currentStep = this.fullStep - this.countStep
                         }
                     }
 
                     if(this.position.y === 380){
                         if (this.position.x < this.polosa2.left){
                             this.position.x += this.step;
+                            this.countStep = this.countStep + 1
+                            this.currentStep = this.fullStep - this.countStep
                         }
                     }
 
                     if(this.position.y === 220){
                         if (this.position.x > this.polosa3.left + 20) {
                             this.position.x -= this.step;
-                        }
-                        else {
-                            this.users.forEach(user => {
-                                if(user.id === this.buff_id) {
-                                    user.scores.robot = 30
-                                    this.save()
+                            this.countStep = this.countStep + 1
+                            this.currentStep = this.fullStep - this.countStep
+
+                            if(this.position.x + 40 > 795) {
+                                this.position.x -= this.step;
+                                this.users.forEach(user => {
+                                    if (user.id === this.buff_id) {
+                                        user.scores.robot = 30
+                                        this.save()
+                                    }
+                                })
+
+                                this.$emit('go_to_menu', this.number_mini_game);
+
+                                let oneElement = document.querySelector('.start');
+                                let twoElement = document.querySelector('.finish');
+                                let threeElement = document.querySelector('.polosa');
+                                let fourElement = document.querySelector('.polosa1');
+                                let fiveElement = document.querySelector('.polosa2');
+                                let sixElement = document.querySelector('.polosa3');
+                                let sevenElement = document.querySelector('.polosa5');
+                                let eightElement = document.querySelector('.body_robot');
+                                let nineElement = document.querySelector('.background1');
+                                let tenElement = document.querySelector('.background2');
+                                let elevenElement = document.querySelector('.background3');
+
+                                if (oneElement && twoElement && threeElement && fourElement && fiveElement && sixElement && sevenElement && eightElement && nineElement && tenElement && elevenElement) {
+                                    oneElement.remove();
+                                    twoElement.remove();
+                                    threeElement.remove();
+                                    fourElement.remove();
+                                    fiveElement.remove();
+                                    sixElement.remove();
+                                    sevenElement.remove();
+                                    eightElement.remove();
+                                    nineElement.remove();
+                                    tenElement.remove();
+                                    elevenElement.remove();
                                 }
-                            })
-
-                            this.$emit('go_to_menu', this.number_mini_game);
-
-                            let oneElement = document.querySelector('.start');
-                            let twoElement = document.querySelector('.finish');
-                            let threeElement = document.querySelector('.polosa');
-                            let fourElement = document.querySelector('.polosa1');
-                            let fiveElement = document.querySelector('.polosa2');
-                            let sixElement = document.querySelector('.polosa3');
-                            let sevenElement = document.querySelector('.polosa5');
-
-                            if (oneElement && twoElement && threeElement && fourElement && fiveElement && sixElement && sevenElement) {
-                                oneElement.remove();
-                                twoElement.remove();
-                                threeElement.remove();
-                                fourElement.remove();
-                                fiveElement.remove();
-                                sixElement.remove();
-                                sevenElement.remove();
                             }
                         }
                     }
@@ -1365,31 +1423,52 @@ Vue.component('robot', {
                     if(this.position.y === 500) {
                         if (this.position.x < this.polosa.right - 100) {
                             this.position.x += this.step;
+                            this.countStep = this.countStep + 1
+                            this.currentStep = this.fullStep - this.countStep
                         }
                     }
                     if(this.position.y === 660){
                         if (this.position.x < this.polosa1.right - 90){
                             this.position.x += this.step;
+                            this.countStep = this.countStep + 1
+                            this.currentStep = this.fullStep - this.countStep
                         }
                     }
                     if (this.position.y === 380) {
                         if (this.position.x < this.polosa3.right - 70){
                             this.position.x += this.step;
+                            this.countStep = this.countStep + 1
+                            this.currentStep = this.fullStep - this.countStep
                         }
                     }
                     if (this.position.y === 220) {
                         if (this.position.x < this.polosa3.right - 80){
                             this.position.x += this.step;
-                            console.log(this.position.x)
-                            console.log(this.polosa3.right - 80)
+                            this.countStep = this.countStep + 1
+                            this.currentStep = this.fullStep - this.countStep
+                        }
+
+                        if (this.position.x > this.polosa5.right - 50){
+                            this.position.x -= this.step;
+                            this.countStep = this.countStep + 1
+                            this.currentStep = this.fullStep - this.countStep
                         }
                     }
                     break;
+            }
+
+            if(this.countStep === 45){
+                this.position.x = 115;
+                this.position.y = 740;
+
+                this.message = 'К сожалению ваши очки кончились, попробуйте еще раз'
+                this.countStep = 0
             }
         },
         resetPosition() {
             this.position.x = 115;
             this.position.y = 740;
+            this.countStep = 0
         },
 
         save() {
@@ -1398,6 +1477,25 @@ Vue.component('robot', {
     },
 
     mounted() {
+        let body_robot = document.createElement("div");
+        body_robot.classList.add("body_robot");
+        document.body.append(body_robot);
+        this.body_robot = body_robot.getBoundingClientRect()
+
+        let background1 = document.createElement("div");
+        background1.classList.add("background1");
+        document.body.append(background1);
+        this.background1 = background1.getBoundingClientRect()
+
+        let background2 = document.createElement("div");
+        background2.classList.add("background2");
+        document.body.append(background2);
+        this.background2 = background2.getBoundingClientRect()
+
+        let background3 = document.createElement("div");
+        background3.classList.add("background3");
+        document.body.append(background3);
+        this.background3 = background3.getBoundingClientRect()
 
         let start = document.createElement("div");
         start.classList.add("start");
@@ -1433,6 +1531,8 @@ Vue.component('robot', {
         polosa5.classList.add("polosa5");
         document.body.append(polosa5);
         this.polosa5 = polosa5.getBoundingClientRect()
+
+        this.currentStep = this.fullStep - this.countStep
     }
 })
 

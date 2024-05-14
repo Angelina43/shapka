@@ -1008,13 +1008,23 @@
 }
 
 /*Робот*/
+
+.body_robot {
+    width: 99.1vw;
+    height: 96vh;
+}
+
+.body_robot, .body_robot1 {
+    background-color: #1e1e1e;
+}
+
 .stripe {
     position: absolute;
     top: 0;
     left: 50%;
     width: 2px;
     height: 100%;
-    background-color: black;
+    background-color: #222021;
     transform: translateX(-50%);
 }
 
@@ -1072,7 +1082,7 @@
     left: 100px;
     width: 85px;
     height: 85px;
-    background-color: cornflowerblue;
+    background-color: #2e2246;
 }
 
 .finish {
@@ -1081,7 +1091,38 @@
     left: 675px;
     width: 85px;
     height: 85px;
-    background-color: cornflowerblue;
+    background-color: #f078d9;
+}
+
+.background1 {
+    position: absolute;
+    left: 2%;
+    top: 10%;
+    width: 20vw;
+    height: 30vh;
+    background-color: #504043;
+}
+
+.background2 {
+    position: absolute;
+    left: 7%;
+    top: 50%;
+    width: 20vw;
+    height: 30vh;
+    background-color: #806762;
+}
+
+.background3 {
+    position: absolute;
+    left: 30%;
+    top: 20%;
+    width: 20vw;
+    height: 30vh;
+    background-color: #3e302d;
+}
+
+.currentStep {
+    color: #f8e8d8;
 }
 
 /*Профиль*/
