@@ -799,7 +799,7 @@ Vue.component('point', {
 
             isMassive: true,
             isRadioMassive: false,
-            isRobot: false,
+            showRobot: false,
 
             massiveIndex: 0,
             currentIndex: 0,
@@ -883,7 +883,8 @@ Vue.component('point', {
             <div class="block25" v-if="this.radioEighteen && this.radioEighteen1"></div>
             <div class="block26" v-if="this.radioNineteen && this.radioNineteen1"></div>
     </div>
-        <div ref="item" class="small_robot" v-if="this.isRobot == true"></div>
+        
+        <div ref="circle" class="small_robot" v-show="showRobot"></div>
 
         <div class="robot_shadow"></div>
         <div class="robot"></div>
@@ -899,6 +900,8 @@ Vue.component('point', {
                 this.isEight1 = true
                 this.massiveIndex++
                 this.currentIndex++
+
+                this.showRobot = false
             }
 
             if (number.class === 1 && number.item === 2 && this.currentIndex === 1) {
@@ -1109,27 +1112,34 @@ Vue.component('point', {
                 this.massiveIndex++
                 this.currentRadioIndex++
 
-                this.moveItem()
-            }
+                this.isRadioMassive = false
+                this.showRobot = true
 
+                this.moveItem();
+            }
         },
 
         moveItem(event) {
-            const item = this.item;
+            const circle = this.circle;
 
-            item.style.position = 'fixed';
-            item.style.left = event.clientX - 20 + 'px';
-            item.style.top = event.clientY - 20 + 'px';
+            if (event) {
+                circle.style.position = 'fixed';
+                circle.style.left = event.clientX - 20 + 'px';
+                circle.style.top = event.clientY - 20 + 'px';
+            }
         }
     },
 
     mounted() {
-        document.addEventListener('mousemove', this.moveItem);
-        this.item = this.$refs.item;
+            document.addEventListener('mousemove', this.moveItem);
+            this.circle = this.$refs.circle;
+            console.log(1)
+
+
     },
 
     beforeUnmount() {
-        document.removeEventListener('mousemove', this.moveItem);
+            document.removeEventListener('mousemove', this.moveItem);
     }
 })
 
@@ -1250,7 +1260,7 @@ Vue.component('robot', {
             border: null,
             message: 'Привет! Помоги пожалуйста роботу добраться до финиша! Скажу по секрету, путь можно укоротить',
             countStep: 0,
-            fullStep: 100,
+            fullStep: 42,
             shortStep: 0,
             currentStep: 0
         }
@@ -1275,11 +1285,14 @@ Vue.component('robot', {
    <div class="body_robot1">
 
     <div ref="block" :style="blockStyle"></div>
-    <button @click="moveBlock('up')">Вверх</button>
-    <button @click="moveBlock('down')">Вниз</button>
-    <button @click="moveBlock('left')">Влево</button>
-    <button @click="moveBlock('right')">Вправо</button>
-    <button @click="resetPosition">Назад</button>
+       
+    <div class="button">
+        <button @click="moveBlock('up')">Вверх</button>
+        <button @click="moveBlock('down')">Вниз</button>
+        <button @click="moveBlock('left')">Влево</button>
+        <button @click="moveBlock('right')">Вправо</button>
+        <button @click="resetPosition">Назад</button>
+    </div>
     
     <div class="robot_shadow"></div>
     <div class="robot"></div>
@@ -1372,13 +1385,19 @@ Vue.component('robot', {
                         }
                     }
 
+                    if(this.polosa5.left === 100){
+                       if(this.position.x === 115) {
+                           this.message = 'Поздравляю, ты нашел подсказку к секретному проходу! Если ты спустишься чучуть вниз и пойдешь направо, между двумя линиями будет проход'
+                       }
+                    }
+
                     if(this.position.y === 220){
                         if (this.position.x > this.polosa3.left + 20) {
                             this.position.x -= this.step;
                             this.countStep = this.countStep + 1
                             this.currentStep = this.fullStep - this.countStep
 
-                            if(this.position.x + 40 > 795) {
+                            if(this.position.x + 40 > 795 || this.position.x + 40 < 795) {
                                 this.position.x -= this.step;
                                 this.users.forEach(user => {
                                     if (user.id === this.buff_id) {
@@ -1457,7 +1476,7 @@ Vue.component('robot', {
                     break;
             }
 
-            if(this.countStep === 45){
+            if(this.countStep > 42){
                 this.position.x = 115;
                 this.position.y = 740;
 
