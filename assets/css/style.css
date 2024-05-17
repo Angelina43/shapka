@@ -31,6 +31,213 @@
     filter: blur(5px);
 }
 
+/*Вход/Регистрация*/
+
+.login > button, .registration > button {
+    width: 10vw;
+    height: 7vh;
+    border: 1px solid #B79375;
+    background-color: #B79375;
+    cursor: pointer;
+    font-size: 20pt;
+    font-weight: 300;
+    color: white;
+    margin: 10px;
+    box-shadow: 12px 12px 2px 1px #8E6340;
+    position: absolute;
+}
+
+.login > input, .registration > input {
+    width: 13vw;
+    height: 7vh;
+    border: 1px solid #A39385;
+    background-color: #A39385;
+    cursor: text;
+    font-size: 20pt;
+    font-weight: 300;
+    color: white;
+    margin: 10px;
+    box-shadow: 12px 12px 2px 1px #8B786B;
+    position: absolute;
+}
+
+.login > input {
+    top: 14vh;
+    left: 10vw;
+}
+
+.login > button {
+    top: 14vh;
+    left: 28vw;
+}
+
+.registration > input {
+    top: 30vh;
+    left: 10vw;
+}
+
+.registration > button {
+    top: 30vh;
+    left: 28vw;
+}
+
+.message_user {
+    width: 19vw;
+    height: 19vh;
+    position: absolute;
+    border: 7px solid #8B786B;
+    border-radius: 30%;
+    background-color: #A39385;
+    left: 63%;
+    top: 55%;
+}
+
+.textMenu_user {
+    width: 80%;
+    position: absolute;
+    top: 11%;
+    left: 10%;
+    text-align: center;
+    font-family: "Segoe UI", "Arial", sans-serif;
+    font-weight: 700;
+    font-size: 19pt;
+    color: white;
+}
+
+/*меню*/
+
+.body_menu_mini_games {
+    background-color: #f6f1ed;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+}
+
+.mini_games_block1 {
+    background-color: #a3c3f0;
+    width: 15vw;
+    height: 80vh;
+    position: absolute;
+    left: 3vw;
+    top: 10vh;
+}
+
+.mini_games_block2 {
+    background-color: #f0e6a3;
+    width: 15vw;
+    height: 80vh;
+    position: absolute;
+    left: 20vw;
+    top: 10vh;
+}
+
+.mini_games_block3 {
+    background-color: #f0a3a4;
+    width: 15vw;
+    height: 80vh;
+    position: absolute;
+    left: 37vw;
+    top: 10vh;
+}
+
+.button_user {
+    position: absolute;
+    left: 65vw;
+    top: 3vh;
+}
+
+.button_user > button:nth-child(2) {
+    position: absolute;
+    left: 16vw;
+}
+
+.button_user > button {
+    width: 10vw;
+    height: 7vh;
+    border: 1px solid #B79375;
+    background-color: #B79375;
+    cursor: pointer;
+    font-size: 20pt;
+    font-weight: 300;
+    color: white;
+    margin: 10px;
+    box-shadow: 12px 12px 2px 1px #8E6340;
+}
+
+.robot_menu {
+    width: 12.5vw;
+    height: 29vh;
+    background-image: url("../planets/Робот.png");
+    background-size: 240px;
+    position: absolute;
+    left: 83%;
+    top: 61%;
+}
+
+.robot_shadow_menu {
+    width: 12.5vw;
+    height: 29vh;
+    background-image: url("../planets/Робот_тень.png");
+    background-size: 240px;
+    position: absolute;
+    left: 83.6%;
+    top: 61%;
+    opacity: 20%;
+    filter: blur(5px);
+}
+
+.message_menu {
+    width: 19vw;
+    height: 19vh;
+    position: absolute;
+    border: 7px solid #8e6340;
+    border-radius: 30%;
+    background-color: #b79375;
+    left: 63%;
+    top: 55%;
+}
+
+.textMenu_menu {
+    width: 80%;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    text-align: center;
+    font-family: "Segoe UI", "Arial", sans-serif;
+    font-weight: 700;
+    font-size: 13pt;
+    color: white;
+}
+
+.mini_games_block1 > button, .mini_games_block2 > button, .mini_games_block3 > button {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2.5vw;
+    margin-top: 10vh;
+    padding-top: 1vh;
+
+    width: 10vw;
+    height: 7vh;
+
+    border: 1px solid #F6F1ED;
+    background-color: #F6F1ED;
+    cursor: pointer;
+    font-size: 15pt;
+    font-weight: 300;
+    color: black;
+}
+
+.mini_games_block1 > button:first-child, .mini_games_block1 > button:nth-child(3),
+.mini_games_block2 > button:first-child, .mini_games_block2 > button:nth-child(2){
+    padding-top: 2vh;
+    padding-left: 5vh;
+}
+
+.mini_games_block3 > button:first-child {
+    padding-top: 2vh;
+    padding-left: 2.5vh;
+}
+
 /*термины*/
 .body_terms {
     background-image: url("../termin/фон.png");

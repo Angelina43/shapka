@@ -1,4 +1,11 @@
 Vue.component('user', {
+
+    props: {
+        message_register: {
+            type: String
+        },
+    },
+
     data() {
         return {
             login_user: {
@@ -22,7 +29,7 @@ Vue.component('user', {
     },
 
     template: `
-    <div>
+    <div class="body_menu_mini_games">
         <div class="login">
           <input placeholder="Логин" type="text" id="login" v-model="login_user.username">
           <button type="submit" @click="user_login">Войти</button>
@@ -32,6 +39,9 @@ Vue.component('user', {
             <input placeholder="Логин" type="text" id="login" v-model="new_user.username">
             <button type="submit" @click="user_add">Добавиться</button>
         </div>
+        <div class="message_user"><p class="textMenu_user">{{message_register}}</p></div>
+        <div class="robot_shadow"></div>
+        <div class="robot"></div>
     </div>
     `,
 
@@ -64,7 +74,7 @@ Vue.component('user', {
                 }
             }
         },
-    }
+    },
 })
 
 //Викторина
@@ -163,10 +173,10 @@ Vue.component('millionaire', {
 `,
     methods: {
         checkAnswer(answerIndex) {
-            if(this.questions[this.questionIndex].correctAnswerIndex === answerIndex) {
+            if (this.questions[this.questionIndex].correctAnswerIndex === answerIndex) {
                 this.users.forEach(user => {
-                    if(user.id === this.buff_id) {
-                        user.scores.millionaire = 10*this.scoreMultiplier
+                    if (user.id === this.buff_id) {
+                        user.scores.millionaire = 10 * this.scoreMultiplier
                         this.save()
                     }
                 })
@@ -317,7 +327,7 @@ Vue.component('terms', {
         nextQuestion() {
             if (this.cardIndex === 5) {
                 this.users.forEach(user => {
-                    if(user.id === this.buff_id) {
+                    if (user.id === this.buff_id) {
                         user.scores.term = 10
                         this.save()
                     }
@@ -354,7 +364,7 @@ Vue.component('planets', {
     data() {
         return {
             poryadokPlanet: [],
-            pravylnyPoryadokPlanet: ["sun", "merkury", "venus" ,"earth", "mars", "jupiter", "saturn", "uran", "pluto"],
+            pravylnyPoryadokPlanet: ["sun", "merkury", "venus", "earth", "mars", "jupiter", "saturn", "uran", "pluto"],
             moveSun: false,
             blackSun: false,
             moveMerkury: false,
@@ -424,7 +434,7 @@ Vue.component('planets', {
             this.moveSun = !this.moveSun
             this.poryadokPlanet.push('sun')
 
-            if(this.poryadokPlanet[0] === 'sun') this.blackSun = true
+            if (this.poryadokPlanet[0] === 'sun') this.blackSun = true
         },
 
         sunWasClicked() {
@@ -448,7 +458,7 @@ Vue.component('planets', {
             this.moveMerkury = !this.moveMerkury
             this.poryadokPlanet.push('merkury');
 
-            if(this.poryadokPlanet[1] === 'merkury') this.blackMerkury = true
+            if (this.poryadokPlanet[1] === 'merkury') this.blackMerkury = true
         },
 
         merkuryWasClicked() {
@@ -472,7 +482,7 @@ Vue.component('planets', {
             this.moveVenus = !this.moveVenus
             this.poryadokPlanet.push('venus');
 
-            if(this.poryadokPlanet[2] === 'venus') this.blackVenus = true
+            if (this.poryadokPlanet[2] === 'venus') this.blackVenus = true
         },
 
         venusWasClicked() {
@@ -496,7 +506,7 @@ Vue.component('planets', {
             this.moveEarth = !this.moveEarth
             this.poryadokPlanet.push('earth');
 
-            if(this.poryadokPlanet[3] === 'earth') this.blackEarth = true
+            if (this.poryadokPlanet[3] === 'earth') this.blackEarth = true
         },
 
         earthWasClicked() {
@@ -520,7 +530,7 @@ Vue.component('planets', {
             this.moveMars = !this.moveMars
             this.poryadokPlanet.push('mars');
 
-            if(this.poryadokPlanet[4] === 'mars') this.blackMars = true
+            if (this.poryadokPlanet[4] === 'mars') this.blackMars = true
         },
 
         marsWasClicked() {
@@ -544,7 +554,7 @@ Vue.component('planets', {
             this.moveJupiter = !this.moveJupiter
             this.poryadokPlanet.push('jupiter');
 
-            if(this.poryadokPlanet[5] === 'jupiter') this.blackJupiter = true
+            if (this.poryadokPlanet[5] === 'jupiter') this.blackJupiter = true
         },
 
         jupiterWasClicked() {
@@ -568,7 +578,7 @@ Vue.component('planets', {
             this.moveSaturn = !this.moveSaturn
             this.poryadokPlanet.push('saturn');
 
-            if(this.poryadokPlanet[6] === 'saturn') this.blackSaturn = true
+            if (this.poryadokPlanet[6] === 'saturn') this.blackSaturn = true
         },
 
         saturnWasClicked() {
@@ -592,7 +602,7 @@ Vue.component('planets', {
             this.moveUran = !this.moveUran
             this.poryadokPlanet.push('uran');
 
-            if(this.poryadokPlanet[7] === 'uran') this.blackUran = true
+            if (this.poryadokPlanet[7] === 'uran') this.blackUran = true
         },
 
         uranWasClicked() {
@@ -616,7 +626,7 @@ Vue.component('planets', {
             this.movePluto = !this.movePluto
             this.poryadokPlanet.push('pluto');
 
-            if(this.poryadokPlanet[8] === 'pluto') this.blackPluto = true
+            if (this.poryadokPlanet[8] === 'pluto') this.blackPluto = true
         },
 
         plutoWasClicked() {
@@ -638,7 +648,7 @@ Vue.component('planets', {
 
                 if (this.poryadokPlanet.join() === this.pravylnyPoryadokPlanet.join()) {
                     this.users.forEach(user => {
-                        if(user.id === this.buff_id) {
+                        if (user.id === this.buff_id) {
                             user.scores.planets = 20
                             this.save()
                         }
@@ -646,15 +656,15 @@ Vue.component('planets', {
                     this.$emit('go_to_menu', this.number_mini_game);
                 } else {
 
-                    if(this.poryadokPlanet[0] === 'sun') this.blackSun = false
-                    if(this.poryadokPlanet[1] === 'merkury') this.blackMerkury = false
-                    if(this.poryadokPlanet[2] === 'venus') this.blackVenus = false
-                    if(this.poryadokPlanet[3] === 'earth') this.blackEarth = false
-                    if(this.poryadokPlanet[4] === 'mars') this.blackMars = false
-                    if(this.poryadokPlanet[5] === 'jupiter') this.blackJupiter = false
-                    if(this.poryadokPlanet[6] === 'saturn') this.blackSaturn = false
-                    if(this.poryadokPlanet[7] === 'uran') this.blackUran = false
-                    if(this.poryadokPlanet[8] === 'pluto') this.blackPluto = false
+                    if (this.poryadokPlanet[0] === 'sun') this.blackSun = false
+                    if (this.poryadokPlanet[1] === 'merkury') this.blackMerkury = false
+                    if (this.poryadokPlanet[2] === 'venus') this.blackVenus = false
+                    if (this.poryadokPlanet[3] === 'earth') this.blackEarth = false
+                    if (this.poryadokPlanet[4] === 'mars') this.blackMars = false
+                    if (this.poryadokPlanet[5] === 'jupiter') this.blackJupiter = false
+                    if (this.poryadokPlanet[6] === 'saturn') this.blackSaturn = false
+                    if (this.poryadokPlanet[7] === 'uran') this.blackUran = false
+                    if (this.poryadokPlanet[8] === 'pluto') this.blackPluto = false
 
                     this.moveSun = !this.moveSun
                     this.moveMerkury = !this.moveMerkury
@@ -961,7 +971,7 @@ Vue.component('point', {
             }
         },
 
-        click(id){
+        click(id) {
             let radio = this.radio_massive[id]
 
             if (radio.elem === 1 && radio.point === 1 && this.currentRadioIndex === 0) {
@@ -1131,15 +1141,15 @@ Vue.component('point', {
     },
 
     mounted() {
-            document.addEventListener('mousemove', this.moveItem);
-            this.circle = this.$refs.circle;
-            console.log(1)
+        document.addEventListener('mousemove', this.moveItem);
+        this.circle = this.$refs.circle;
+        console.log(1)
 
 
     },
 
     beforeUnmount() {
-            document.removeEventListener('mousemove', this.moveItem);
+        document.removeEventListener('mousemove', this.moveItem);
     }
 })
 
@@ -1161,10 +1171,10 @@ Vue.component('survey', {
             answerIndex: 0,
             questions: ['Что такое паяльник?', 'Из чего состоит паяльник?', 'Для чего нужен флюс?', 'Для чего нужен припой', 'Для чего нужна губка?'],
             answer: [['Инструмент для пайки', 'инструмент для пайки'],
-                    ['Корпуса, рукоятки, нагревательного элемента и жала', 'корпуса, рукоятки, нагревательного элемента и жала'],
-                    ['Для удаления оксидов', 'для удаления оксидов'],
-                    ['Для соединения заготовок', 'для соединения заготовок'],
-                    ['Для отчистки жала паяльника', 'для отчистки жала паяльника'],
+                ['Корпуса, рукоятки, нагревательного элемента и жала', 'корпуса, рукоятки, нагревательного элемента и жала'],
+                ['Для удаления оксидов', 'для удаления оксидов'],
+                ['Для соединения заготовок', 'для соединения заготовок'],
+                ['Для отчистки жала паяльника', 'для отчистки жала паяльника'],
             ],
             correctAnswer: null,
             message_survey: null,
@@ -1195,9 +1205,9 @@ Vue.component('survey', {
             let currentQuestion = this.questions[this.questionIndex];
             let currentAnswer = this.answer[this.questionIndex];
 
-            if(this.correctAnswer === null){
+            if (this.correctAnswer === null) {
                 this.message_survey = 'Заполните поле для ответа'
-            }  else {
+            } else {
 
                 if (this.correctAnswer.trim().toLowerCase() === currentAnswer[0] || this.correctAnswer.trim().toLowerCase() === currentAnswer[1]) {
                     this.users.forEach(user => {
@@ -1215,7 +1225,7 @@ Vue.component('survey', {
 
                     this.answerIndex++;
 
-                }else {
+                } else {
                     this.correctAnswer = ""
 
                     this.questionIndex++;
@@ -1342,7 +1352,7 @@ Vue.component('robot', {
                         this.countStep = this.countStep + 1
                         this.currentStep = this.fullStep - this.countStep
                     }
-                    if(this.position.x === 875){
+                    if (this.position.x === 875) {
                         if (this.position.y > this.polosa3.top + 185) {
                             this.position.y -= this.step;
                             this.countStep = this.countStep + 1
@@ -1350,7 +1360,7 @@ Vue.component('robot', {
                         }
                     }
 
-                    if(this.position.x === 235){
+                    if (this.position.x === 235) {
                         if (this.position.y > this.polosa5.top + 300) {
                             this.position.y -= this.step;
                             this.countStep = this.countStep + 1
@@ -1369,35 +1379,35 @@ Vue.component('robot', {
                         this.currentStep = this.fullStep - this.countStep
                     }
 
-                    if(this.position.y === 660) {
-                        if (this.position.x < this.polosa1.left - 10){
+                    if (this.position.y === 660) {
+                        if (this.position.x < this.polosa1.left - 10) {
                             this.position.x += this.step;
                             this.countStep = this.countStep + 1
                             this.currentStep = this.fullStep - this.countStep
                         }
                     }
 
-                    if(this.position.y === 380){
-                        if (this.position.x < this.polosa2.left){
+                    if (this.position.y === 380) {
+                        if (this.position.x < this.polosa2.left) {
                             this.position.x += this.step;
                             this.countStep = this.countStep + 1
                             this.currentStep = this.fullStep - this.countStep
                         }
                     }
 
-                    if(this.polosa5.left === 100){
-                       if(this.position.x === 115) {
-                           this.message = 'Поздравляю, ты нашел подсказку к секретному проходу! Если ты спустишься чучуть вниз и пойдешь направо, между двумя линиями будет проход'
-                       }
+                    if (this.polosa5.left === 100) {
+                        if (this.position.x === 115) {
+                            this.message = 'Поздравляю, ты нашел подсказку к секретному проходу! Если ты спустишься чучуть вниз и пойдешь направо, между двумя линиями будет проход'
+                        }
                     }
 
-                    if(this.position.y === 220){
+                    if (this.position.y === 220) {
                         if (this.position.x > this.polosa3.left + 20) {
                             this.position.x -= this.step;
                             this.countStep = this.countStep + 1
                             this.currentStep = this.fullStep - this.countStep
 
-                            if(this.position.x + 40 > 795 || this.position.x + 40 < 795) {
+                            if (this.position.x + 40 > 795 || this.position.x + 40 < 795) {
                                 this.position.x -= this.step;
                                 this.users.forEach(user => {
                                     if (user.id === this.buff_id) {
@@ -1439,35 +1449,35 @@ Vue.component('robot', {
                     break;
 
                 case 'right':
-                    if(this.position.y === 500) {
+                    if (this.position.y === 500) {
                         if (this.position.x < this.polosa.right - 100) {
                             this.position.x += this.step;
                             this.countStep = this.countStep + 1
                             this.currentStep = this.fullStep - this.countStep
                         }
                     }
-                    if(this.position.y === 660){
-                        if (this.position.x < this.polosa1.right - 90){
+                    if (this.position.y === 660) {
+                        if (this.position.x < this.polosa1.right - 90) {
                             this.position.x += this.step;
                             this.countStep = this.countStep + 1
                             this.currentStep = this.fullStep - this.countStep
                         }
                     }
                     if (this.position.y === 380) {
-                        if (this.position.x < this.polosa3.right - 70){
+                        if (this.position.x < this.polosa3.right - 70) {
                             this.position.x += this.step;
                             this.countStep = this.countStep + 1
                             this.currentStep = this.fullStep - this.countStep
                         }
                     }
                     if (this.position.y === 220) {
-                        if (this.position.x < this.polosa3.right - 80){
+                        if (this.position.x < this.polosa3.right - 80) {
                             this.position.x += this.step;
                             this.countStep = this.countStep + 1
                             this.currentStep = this.fullStep - this.countStep
                         }
 
-                        if (this.position.x > this.polosa5.right - 50){
+                        if (this.position.x > this.polosa5.right - 50) {
                             this.position.x -= this.step;
                             this.countStep = this.countStep + 1
                             this.currentStep = this.fullStep - this.countStep
@@ -1476,7 +1486,7 @@ Vue.component('robot', {
                     break;
             }
 
-            if(this.countStep > 42){
+            if (this.countStep > 42) {
                 this.position.x = 115;
                 this.position.y = 740;
 
@@ -1607,7 +1617,7 @@ Vue.component('task', {
             if (cleanedUserCode === cleanedSavedCode) {
                 this.comparisonResult = true; // Коды совпадают
                 this.users.forEach(user => {
-                    if(user.id === this.buff_id) {
+                    if (user.id === this.buff_id) {
                         user.scores.task = 30
                         this.save()
                     }
@@ -1641,55 +1651,68 @@ Vue.component('menu_mini_games', {
     template: `
     <div class="body_menu_mini_games">
         <div class="button_menu_mini_games">
-            <button @click="go_to_terms">Термины</button>
-            <button @click="go_to_point">Соединение по точка</button>
-            <button @click="go_to_millionaire">Миллионер</button>
-            <button @click="go_to_planets">Планеты</button>
-            <button @click="go_to_survey">Опросник</button>
-            <button @click="go_to_robot">Робот по линии</button>
-            <button @click="go_to_task">Задача на Java Script</button>
-            <button @click="go_to_profile">Профиль</button>
+            <div class="mini_games_block1">
+                <button @click="go_to_terms">Термины</button>
+                <button @click="go_to_point">Соединение по точкам</button>
+                <button @click="go_to_millionaire">Миллионер</button>
+            </div>
+            <div class="mini_games_block2">
+                <button @click="go_to_planets">Планеты</button>
+                <button @click="go_to_survey">Опросник</button>
+            </div>
+            <div class="mini_games_block3">
+                <button @click="go_to_robot">Робот по линии</button>
+                <button @click="go_to_task">Задача на Java Script</button>
+            </div>
+            <div class="button_user">
+                <button @click="go_to_profile">Профиль</button>
+                <button type="submit" @click="user_logout">Выйти</button></div>
+            </div>
+            
+            <div class="robot_shadow_menu"></div>
+            <div class="robot_menu"></div>
+            
+            <div v-for="(user, index) in users">
+                    <div v-if="buff_id === user.id">
+                        <div class="message_menu"><p class="textMenu_menu">Привет {{user.username}}! Мы находимся на главном меню. Здесь ты можешь выбрать и пройти мини-игру, заглянуть в свой профиль и узнать свои результаты, а также увидеть рейтинг всех игроков!</p></div>
+                    </div>
+            </div>
         </div>
-        
-        <div class="logout">
-            <button type="submit" @click="user_logout">Выйти</button></div>
-        </div>
-    </div>
     `,
 
     methods: {
-        go_to_millionaire(){
+        go_to_millionaire() {
             this.$emit('go_to_millionaire', this.number_mini_game);
         },
-        go_to_terms(){
+        go_to_terms() {
             this.$emit('go_to_terms', this.number_mini_game);
         },
-        go_to_planets(){
+        go_to_planets() {
             this.$emit('go_to_planets', this.number_mini_game);
         },
-        go_to_point(){
+        go_to_point() {
             this.$emit('go_to_point', this.number_mini_game);
         },
 
-        go_to_survey(){
+        go_to_survey() {
             this.$emit('go_to_survey', this.number_mini_game);
         },
 
-        go_to_robot(){
+        go_to_robot() {
             this.$emit('go_to_robot', this.number_mini_game);
         },
 
-        go_to_task(){
+        go_to_task() {
             this.$emit('go_to_task', this.number_mini_game);
         },
 
-        go_to_profile(){
+        go_to_profile() {
             this.$emit('go_to_profile', this.number_mini_game);
         },
 
         user_logout() {
-                this.$emit('user_logout', this.login_user);
-                this.login_user = { username: '' };
+            this.$emit('user_logout', this.login_user);
+            this.login_user = {username: ''};
         },
     },
 })
@@ -1760,6 +1783,7 @@ Vue.component('profile', {
 
 let app = new Vue({
     el: '#app',
+
     data: {
         users: [
             {
@@ -1795,22 +1819,31 @@ let app = new Vue({
         buff_id: 0,
         number_mini_game: -1,
         user_login: 0,
+        message_register: 'Привет, меня зовут Эхо! А как зовут тебя? Скорее напиши свое имя и мы начнем игру!'
     },
 
     methods: {
-        login(loginData){
+        login(loginData) {
             this.users.forEach(user => {
-                if(user.username === loginData.username) {
+                if (user.username === loginData.username) {
                     this.buff_id = user.id
                     this.number_mini_game = 0
                     this.user_login = 1
 
                     this.save();
                 }
+
+                else  {
+                    this.message_register = 'К сожалению, такого друга у меня нет. Давай попробуем еще раз!'
+
+                    setTimeout(() => {
+                        this.message_register = 'Привет, меня зовут Эхо! А как зовут тебя? Скорее напиши свое имя и мы начнем игру!'
+                    }, 3000)
+                }
             })
         },
 
-        logout(){
+        logout() {
             this.buff_id = 0
             this.number_mini_game = -1
             this.user_login = 0
@@ -1822,52 +1855,63 @@ let app = new Vue({
             const isDuplicate = this.users.some(user => user.username === newUserData.username);
 
             if (isDuplicate) {
-                console.error('Пользователь с таким логином уже существует');
-                return;
+                this.message_register = 'К сожалению, имя уже занято. Давай попробуем еще раз!'
+
+                setTimeout(() => {
+                    this.message_register = 'Привет, меня зовут Эхо! А как зовут тебя? Скорее напиши свое имя и мы начнем игру!'
+                }, 3000)
             }
 
-            this.users.push(newUserData);
-            this.save();
+            else {
+                this.users.push(newUserData);
+                this.save();
+
+                this.message_register = 'Ты зарегестрировался! Теперь попробуй войти'
+
+                setTimeout(() => {
+                    this.message_register = 'Привет, меня зовут Эхо! А как зовут тебя? Скорее напиши свое имя и мы начнем игру!'
+                }, 3000)
+            }
         },
 
-        plus(){
+        plus() {
             this.number_mini_game += 1
             console.log(this.number_mini_game)
         },
 
-        menu(){
+        menu() {
             this.number_mini_game = 0
         },
 
-        terms(){
+        terms() {
             this.number_mini_game = 1
         },
 
-        point(){
+        point() {
             this.number_mini_game = 2
         },
 
-        millionaire(){
+        millionaire() {
             this.number_mini_game = 3
         },
 
-        planets(){
+        planets() {
             this.number_mini_game = 4
         },
 
-        survey(){
+        survey() {
             this.number_mini_game = 5
         },
 
-        robot(){
+        robot() {
             this.number_mini_game = 6
         },
 
-        task(){
+        task() {
             this.number_mini_game = 7
         },
 
-        profile(){
+        profile() {
             this.number_mini_game = 8
         },
 

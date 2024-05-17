@@ -9,7 +9,7 @@
 </head>
 <body>
 <div id="app">
-    <user id="user" v-if="number_mini_game === -1" @user_login="login" @user_add="registration" :users="users" :buff_id="buff_id" :user_login="user_login"></user>
+    <user id="user" v-if="number_mini_game === -1" @user_login="login" @user_add="registration" :users="users" :buff_id="buff_id" :user_login="user_login" :message_register="message_register"></user>
     <menu_mini_games v-if="number_mini_game === 0" :users="users" :buff_id="buff_id" :user_login="user_login"
                      @go_to_millionaire="millionaire"
                      @go_to_terms="terms"
