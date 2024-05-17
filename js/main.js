@@ -710,6 +710,9 @@ Vue.component('point', {
         },
         buff_id: {
             type: Number
+        },
+        number_mini_game: {
+            type: Number
         }
     },
 
@@ -810,6 +813,7 @@ Vue.component('point', {
             isMassive: true,
             isRadioMassive: false,
             showRobot: false,
+            mouse: false,
 
             massiveIndex: 0,
             currentIndex: 0,
@@ -820,7 +824,7 @@ Vue.component('point', {
     },
 
     template: `
-<div>
+<div class="body_all_point" :class="{ mouse }">
     <div class="body_point" v-if="this.isMassive == true"> 
         <div class="massive1" @click=but(id) v-for="(elem, id) in massive" :id=id :key="elem.item">
                 <div v-if="elem.item === 1">{{ elem.item }}</div> 
@@ -896,6 +900,7 @@ Vue.component('point', {
         
         <div ref="circle" class="small_robot" v-show="showRobot"></div>
 
+        <button class="menu" @click="menu">В меню</button>
         <div class="robot_shadow"></div>
         <div class="robot"></div>
         <div class="message_point"><p class="textMenu_point">{{message}}</p></div>
@@ -968,6 +973,7 @@ Vue.component('point', {
             if (this.massiveIndex === this.massive.length) {
                 this.isMassive = false
                 this.isRadioMassive = true
+                this.message = 'Отлично, мы собрали корпус! Теперь необходимо собрать электрические элементы!'
             }
         },
 
@@ -1124,6 +1130,8 @@ Vue.component('point', {
 
                 this.isRadioMassive = false
                 this.showRobot = true
+                this.mouse = !this.mouse
+                this.message = "Вау! Смотри, у тебя получился жук, который следует за светом от фонарика!"
 
                 this.moveItem();
             }
@@ -1137,15 +1145,16 @@ Vue.component('point', {
                 circle.style.left = event.clientX - 20 + 'px';
                 circle.style.top = event.clientY - 20 + 'px';
             }
+        },
+
+        menu() {
+            this.$emit('go_to_menu', this.number_mini_game);
         }
     },
 
     mounted() {
         document.addEventListener('mousemove', this.moveItem);
         this.circle = this.$refs.circle;
-        console.log(1)
-
-
     },
 
     beforeUnmount() {
@@ -1306,7 +1315,7 @@ Vue.component('robot', {
     
     <div class="robot_shadow"></div>
     <div class="robot"></div>
-    <div class="message_terms"><p class="textMenu_terms">{{message}}</p></div>     
+    <div class="message_robot"><p class="textMenu_robot">{{message}}</p></div>     
     
     <p class="currentStep">Количество оставшихся шагов: {{currentStep}}</p>     
   </div>
