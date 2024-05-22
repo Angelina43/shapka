@@ -1225,8 +1225,6 @@ Vue.component('survey', {
                             user.scores.survey = this.scoreSurvey
                             this.save();
                         }
-
-                        console.log(user.scores.survey)
                     })
                     this.correctAnswer = "";
 
@@ -1242,12 +1240,14 @@ Vue.component('survey', {
                     this.answerIndex++;
 
                 }
+
+                this.nextQuestion()
             }
         },
 
         nextQuestion() {
             if (this.questionIndex === this.questions.length) {
-                console.log(1)
+                this.$emit('go_to_menu', this.number_mini_game);
             }
         },
 
@@ -1588,57 +1588,72 @@ Vue.component('task', {
 
     data() {
         return {
-            userCode: '', // Хранит код, введенный пользователем
-            savedCode: `let i = 0 i++ console.log(i)`, // Пример сохраненного кода
-            comparisonResult: null // Результат сравнения кодов (null - по умолчанию)
+            userCode: '',
+            savedCode: `let step = 15 let fish = 0 let cat = 0 while (cat !== 15) { cat += 1 }  if (cat === step) fish = 1`,
+            comparisonResult: null,
+            message_js: 'Привет! В данной мини-игре тебе необходимо написать код, подходящий под правила и условия задачи',
+            clue: false,
+            clue_text: false
         }
     },
     template: `
-        <div>
-        <!-- Текстовое поле для ввода кода -->
-    <textarea v-model="userCode" placeholder="Введите ваш JavaScript код сюда..."></textarea>
-    
-    <!-- Кнопка для сравнения кода -->
-    <button @click="compareCode">Сравнить код</button>
-   
+        <div class="background_task">
+            <textarea class="textarea" v-model="userCode" placeholder="Введите ваш JavaScript код сюда..."></textarea>
+            <button class="button_js" @click="compareCode">Сравнить код</button>
+            <button v-show="clue" class="button_task" @click="text">Показать правильный код</button>
+            <div v-show="clue_text" class="clue_text">
+                <p>let step = 15 <br> let fish = 0 <br> let cat = 0 <br> while (cat !== 15) { <br> cat += 1 <br> }  <br> if (cat === step) fish = 1</p>
+            </div>
+            
+            <div class="task">
+                <p>Задача: Тебе необходимо написать код, при котором существует переменная кошка (cat), она очень хочет съесть рыбу (fish), но для этого надо сделать несколько шагов (step), а именно 15, чтобы достичь миски с рыбой</p>
+                <br>
+                <p>Правила:</p>
+                <ul>
+                    <ul>1. Код необходимо писать в нижнем регистре</ul>
+                    <ul>2. В конце строки не ставить знак ";"</ul>
+                    <ul>2. Код может быть написан как в одну строку, так и с новой строки</ul>
+                </ul>
+            </div>
 
-    <!-- Результат сравнения -->
-    <div v-if="comparisonResult !== null">
-      <h2>Результат сравнения:</h2>
-      <p v-if="comparisonResult">Коды совпадают!</p>
-      <p v-else>Коды не совпадают.</p>
-    </div>
-  </div>
+            <div class="robot_shadow"></div>
+            <div class="robot"></div>
+            <div class="message_task"><p class="textMenu_task">{{message_js}}</p></div>   
         </div>
     `,
     methods: {
         compareCode() {
-            // Убедимся, что коды не пусты
             if (this.userCode.trim() === '' || this.savedCode.trim() === '') {
-                alert('Введите код для сравнения');
-                return;
+                this.message_js = 'Введите, пожалуйста код для сравнения'
+                return
             }
 
-            // Сравним введенный пользователем код с сохраненным
-            const cleanedUserCode = this.userCode.trim().replace(/\s+/g, '');
-            const cleanedSavedCode = this.savedCode.trim().replace(/\s+/g, '');
+            const cleanedUserCode = this.userCode.trim().replace(/\s+/g, '')
+            const cleanedSavedCode = this.savedCode.trim().replace(/\s+/g, '')
 
             if (cleanedUserCode === cleanedSavedCode) {
-                this.comparisonResult = true; // Коды совпадают
+                this.comparisonResult = true;
                 this.users.forEach(user => {
                     if (user.id === this.buff_id) {
                         user.scores.task = 30
                         this.save()
                     }
                 })
-                this.$emit('go_to_menu', this.number_mini_game);
+                this.$emit('go_to_menu', this.number_mini_game)
             } else {
-                this.comparisonResult = false; // Коды не совпадают
+                this.comparisonResult = false
+                this.message_js = 'К сожалению, вы не правы. Попробуйте еще раз'
+                this.clue = true
             }
         },
 
+        text(){
+            this.clue = false
+            this.clue_text = true
+        },
+
         save() {
-            localStorage.setItem('users', JSON.stringify(this.users));
+            localStorage.setItem('users', JSON.stringify(this.users))
         },
     },
 })
@@ -1881,11 +1896,6 @@ let app = new Vue({
                     this.message_register = 'Привет, меня зовут Эхо! А как зовут тебя? Скорее напиши свое имя и мы начнем игру!'
                 }, 3000)
             }
-        },
-
-        plus() {
-            this.number_mini_game += 1
-            console.log(this.number_mini_game)
         },
 
         menu() {

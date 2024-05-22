@@ -14,6 +14,11 @@
     src: url("../fonts/BrahmsGotischCyr.otf") format("truetype");
 }
 
+@font-face {
+    font-family: 'MultiroundPro';
+    src: url("../fonts/MultiroundPro.otf") format("truetype");
+}
+
 .robot {
     width: 12.5vw;
     height: 29vh;
@@ -1389,7 +1394,6 @@
     font-family: "BrahmsGotischCyr", "Arial", sans-serif;
 }
 
-
 .message_robot {
     width: 19vw;
     height: 19vh;
@@ -1416,4 +1420,105 @@
 .body_profile {
     display: grid;
     grid-template-columns: 15vw 1fr 1fr;
+}
+
+/*Задача на JS*/
+
+.background_task {
+    width: 100vw;
+    height: 100vh;
+    background-color: #8FAABD;
+}
+
+.textarea {
+    width: 20%;
+    height: 60vh;
+    position: absolute;
+    top: 5vh;
+    left: 4vw;
+    border: 7px solid #77558B;
+    background-color: #A37BBA;
+    resize: none;
+    font-family: "MultiroundPro", "Arial", sans-serif;
+}
+
+.task {
+    width: 27%;
+    height: 30vh;
+    position: absolute;
+    top: 5vh;
+    left: 30vw;
+    border: 7px solid #77558B;
+    background-color: #A37BBA;
+    cursor: default;
+    font-size: 12pt;
+    padding-top: 5px;
+    padding-left: 5px;
+    font-family: "MultiroundPro", "Arial", sans-serif;
+    line-height: 1.6;
+}
+
+.button_js {
+    width: 8%;
+    height: 8vh;
+    position: absolute;
+    top: 40vh;
+    left: 30vw;
+    cursor: pointer;
+    border: 7px solid #7004AE;
+    background-color: #A150CF;
+    font-size: 12pt;
+    color: #E2BEF6;
+    font-family: "MultiroundPro", "Arial", sans-serif;
+}
+
+.button_task {
+    width: 10%;
+    height: 8vh;
+    position: absolute;
+    top: 5vh;
+    left: 87vw;
+    cursor: pointer;
+    border: 7px solid #7004AE;
+    background-color: #A150CF;
+    font-size: 12pt;
+    font-family: "MultiroundPro", "Arial", sans-serif;
+}
+
+.clue_text {
+    width: 13%;
+    height: 18vh;
+    position: absolute;
+    top: 5vh;
+    left: 80vw;
+    border: 7px solid #77558B;
+    background-color: #A37BBA;
+    cursor: default;
+    font-size: 13pt;
+    padding-top: 5px;
+    padding-left: 5px;
+    font-family: "MultiroundPro", "Arial", sans-serif;
+}
+
+.textMenu_task {
+    width: 80%;
+    position: absolute;
+    top: 18%;
+    left: 10%;
+    text-align: center;
+    font-family: "MultiroundPro", "Arial", sans-serif;
+    font-size: 12pt;
+    color: #E2BEF6;
+    line-height: 1.6;
+}
+
+.message_task {
+    width: 19vw;
+    height: 19vh;
+    position: absolute;
+    border: 7px solid #7004AE;
+    border-radius: 50%;
+    background-color: #A150CF;
+    left: 63%;
+    top: 60%;
 }
