@@ -19,6 +19,11 @@
     src: url("../fonts/MultiroundPro.otf") format("truetype");
 }
 
+@font-face {
+    font-family: 'chalkcyrillicfreehand';
+    src: url("../fonts/chalkcyrillicfreehand.ttf") format("truetype");
+}
+
 .robot {
     width: 12.5vw;
     height: 29vh;
@@ -1418,9 +1423,86 @@
 
 /*Профиль*/
 .body_profile {
-    display: grid;
-    grid-template-columns: 15vw 1fr 1fr;
+    width: 100vw;
+    height: 100vh;
+    background-color: #1E1E1E;
+    color: whitesmoke;
 }
+
+.grid {
+    display: grid;
+}
+
+.profile_user {
+    position: absolute;
+    top: 100px;
+    width: 500px;
+    height: 300px;
+    font-size: 18pt;
+    left: 300px;
+}
+
+.count {
+    position: absolute;
+    top: 100px;
+}
+
+.ledaer {
+    position: absolute;
+    top: 200px;
+    left: 1000px;
+    width: 500px;
+    height: 300px;
+    font-size: 18pt;
+}
+
+.leader{
+    position: absolute;
+    top: -100px;
+}
+
+.message_robot_profile {
+    width: 19vw;
+    height: 19vh;
+    position: absolute;
+    border: 7px solid #292A2F;
+    border-radius: 50%;
+    background-color: #55596A;
+    left: 63%;
+    top: 60%;
+}
+
+.text_robot_profile {
+    width: 80%;
+    position: absolute;
+    top: 13%;
+    left: 10%;
+    text-align: center;
+    font-size: 16pt;
+    color: whitesmoke;
+    line-height: 1.6;
+    font-family: "Calibri", "Arial", sans-serif;
+}
+
+.grid > div:nth-child(2), .leader, .text{
+    font-family: "Calibri", "Arial", sans-serif;
+}
+
+.menu_profile{
+    width: 10%;
+    height: 7vh;
+    position: absolute;
+    top: 5vh;
+    left: 84vw;
+    border: 7px solid #292A2F;
+    border-radius: 50%;
+    background-color: #55596A;
+    cursor: pointer;
+    font-size: 20pt;
+    font-weight: 300;
+    color: whitesmoke;
+}
+
 
 /*Задача на JS*/
 
@@ -1521,4 +1603,52 @@
     background-color: #A150CF;
     left: 63%;
     top: 60%;
+}
+
+/*Опросник*/
+
+.survey {
+    width: 100vw;
+    height: 100vh;
+    background-color: #003114;
+    font-family: "chalkcyrillicfreehand", "Arial", sans-serif;
+    color: whitesmoke;
+}
+
+.message_survey {
+    width: 19vw;
+    height: 19vh;
+    position: absolute;
+    border: 7px solid #292A2F;
+    border-radius: 50%;
+    background-color: #55596A;
+    left: 63%;
+    top: 60%;
+}
+
+.textMenu_survey {
+    width: 80%;
+    position: absolute;
+    top: 18%;
+    left: 10%;
+    text-align: center;
+    font-family: "chalkcyrillicfreehand", "Arial", sans-serif;
+    font-size: 20pt;
+    color: whitesmoke;
+    line-height: 1.6;
+}
+
+.survey > h1 {
+    position: absolute;
+    left: 33vw;
+    top: 20vh;
+    font-size: 60pt;
+}
+
+.survey > input {
+    position: absolute;
+    left: 32.3vw;
+    top: 30vh;
+    width: 30vw;
+    height: 4vh;
 }

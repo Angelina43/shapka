@@ -1133,6 +1133,8 @@ Vue.component('point', {
                 this.mouse = !this.mouse
                 this.message = "Вау! Смотри, у тебя получился жук, который следует за светом от фонарика!"
 
+                this.users.scores.point = 20
+
                 this.moveItem();
             }
         },
@@ -1186,7 +1188,7 @@ Vue.component('survey', {
                 ['Для отчистки жала паяльника', 'для отчистки жала паяльника'],
             ],
             correctAnswer: null,
-            message_survey: null,
+            message: "Привет! Давай проверим твои знания насчет оборудований для пайки!",
             scoreSurvey: 0
         }
     },
@@ -1204,8 +1206,11 @@ Vue.component('survey', {
     <div class="survey">
         <h1>{{ questions[questionIndex] }}</h1>
            <input  v-model="correctAnswer" placeholder="введите ответ" v-on:keyup.enter="submitAnswers">
-        <p>Введённое сообщение: {{ correctAnswer }}</p>
-        <p v-if="message_survey">{{message_survey}}</p>
+        
+            <div class="robot_shadow"></div>
+            <div class="robot"></div>
+            
+            <div class="message_survey"><p class="textMenu_survey">{{message}}</p></div>
     </div>
 `,
     methods: {
@@ -1215,7 +1220,7 @@ Vue.component('survey', {
             let currentAnswer = this.answer[this.questionIndex];
 
             if (this.correctAnswer === null) {
-                this.message_survey = 'Заполните поле для ответа'
+                this.message = 'Заполните поле для ответа'
             } else {
 
                 if (this.correctAnswer.trim().toLowerCase() === currentAnswer[0] || this.correctAnswer.trim().toLowerCase() === currentAnswer[1]) {
@@ -1757,12 +1762,13 @@ Vue.component('profile', {
 
     template: `
         <div class="body_profile">
-            <div class="profile_user" v-for="(user, index) in users"> 
+            <div class="grid">
+                <div class="profile_user" v-for="(user, index) in users"> 
                 <div v-if="buff_id === user.id">
                     <p>Профиль игрока {{user.username}}</p>
                 <div class="raiting">
                 <div v-for="(user, index) in users">
-                    <div v-if="buff_id === user.id">
+                    <div v-if="buff_id === user.id" class="count">
                         <p>Счёт в игре "Термины": {{user.scores.term}}</p>
                         <p>Счёт в игре "Точки": {{user.scores.point}}</p>
                         <p>Счёт в игре "Миллионер": {{user.scores.millionaire}}</p>
@@ -1776,12 +1782,16 @@ Vue.component('profile', {
                 </div>
             </div>
 
-            <div class="ledaer">
-                <p>Лидеры</p>
-                <div v-for="(user, index) in users"> 
+                <div class="ledaer">
+                <p class="leader">Лидеры</p>
+                <div v-for="(user, index) in users" class="text"> 
                     <ul>{{user.username}}:{{user.total}}</ul>
                 </div>
             </div>
+            </div>
+            <div class="robot"></div>
+            <div class="message_robot_profile"><p class="text_robot_profile">Привет! Ты зашел в свой профиль! Здесь выведены все твои очки, а также рейтинг всех игроков!</p></div>
+            <button class="menu_profile" @click="menu">В меню</button>
         </div>
     `,
 
@@ -1790,7 +1800,7 @@ Vue.component('profile', {
             const user = this.users.find(user => user.id === userId);
 
             if (user) {
-                user.total = user.scores.term + user.scores.millionaire + user.scores.planets;
+                user.total = user.scores.term + user.scores.point + user.scores.millionaire + user.scores.planets + user.scores.survey + user.scores.robot + user.scores.task;
 
                 this.users.sort((a, b) => b.total - a.total);
             }
